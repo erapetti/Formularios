@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(/styles/fonts/LatoRegular.ttf) format('truetype');
+}
+
+body { font-family:Lato,SansSerif;font-size:12pt; }
+span.input-group-addon {font-weight:bold;font-size:12pt;background-color:transparent;border:0;text-align:right;}
+input.form-control {font-size:12pt;}

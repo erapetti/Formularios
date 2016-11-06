@@ -1,0 +1,9 @@
+<%if (typeof m.texto1 !== 'undefined' && m.texto1 !== null) { %><%- m.texto1 %><% } %>
+<%if (typeof m.texto2 !== 'undefined' && m.texto2 !== null) { %><%- m.texto2 %><% } %>
+
+<form method="post">
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+  <div class="panel panel-default" style="margin:2em">
+    <div class="panel-body">
+      <table class="table">

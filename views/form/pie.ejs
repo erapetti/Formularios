@@ -1,0 +1,15 @@
+      </table>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+
+  <% if (typeof(mensaje) !== 'undefined') { -%>
+    <div class="alert alert-danger">
+      <strong>Error!</strong> <%= mensaje %>
+    </div>
+  <% } -%>
+
+  <% if (typeof m.texto1 !== 'undefined' && m.texto1 !== null) { %><%- m.texto1 %><% } %>
+  <% if (typeof m.texto2 !== 'undefined' && m.texto2 !== null) { %><%- m.texto2 %><% } %>
+</form>

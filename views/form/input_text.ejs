@@ -1,0 +1,9 @@
+<tr>
+  <td class="col-sm-3">
+    <span class="input-group-addon" id="campo-<%= m.id%>"><%= m.etiqueta %>:</span>
+  </td><td class="col-sm-6">
+    <input type="text" class="form-control" placeholder="<%= m.ayuda %>" aria-describedby="campo-<%= m.id%>" name="<%= m.nombre %>" value="<% if (typeof m.value !== 'undefined') { %><%= m.value %><% } %>">
+  </td><td class="col-sm-3">
+    <% if (typeof m.texto1 !== 'undefined') { %><%= m.texto1 %><% } %>
+  </td>
+</tr>

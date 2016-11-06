@@ -1,0 +1,9 @@
+<div style="margin:2em;width:90%">
+
+<h1> <%= config.titulo %> </h1>
+
+<% config.modulos.forEach(function(m){ %>
+<%- partial (m.modid,{m:m}) %>
+<% }) %>
+
+</div>
