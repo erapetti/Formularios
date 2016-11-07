@@ -1,8 +1,8 @@
 <tr>
   <td class="col-sm-3">
-    <span class="input-group-addon" id="campo-<%= m.id%>"><%= m.etiqueta %>:</span>
+    <span class="input-group-addon" id="campo-<%= m.orden%>"><%= m.etiqueta %>:</span>
   </td><td class="col-sm-6">
-    <input type="text" class="form-control" placeholder="<%= m.ayuda %>" aria-describedby="campo-<%= m.id%>" name="<%= m.nombre %>" value="<% if (typeof m.value !== 'undefined') { %><%= m.value %><% } %>">
+    <input type="text" class="form-control" placeholder="<%= m.ayuda %>" aria-describedby="campo-<%= m.orden%>" name="<%= m.nombre %>" value="<% if (typeof m.value !== 'undefined') { %><%= m.value %><% } %>"<% if (typeof m.validador !== 'undefined') { %> validate="<%= m.validador %>"<% } %>>
   </td><td class="col-sm-3">
     <% if (typeof m.texto1 !== 'undefined') { %><%= m.texto1 %><% } %>
   </td>

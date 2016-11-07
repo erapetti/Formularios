@@ -15,7 +15,7 @@ module.exports = {
 				return callback(err,undefined);
 			}
 			client.Execute({Sesionesid:sesionId}, function(err, result) {
-				if (!result.Userid) {
+				if (!result || !result.Userid) {
 					return callback(new Error("Sesión no válida. Reinicie su conexión con el portal de servicios"),undefined);
 				}
 				wsPortal.leoPermiso({Sesionesid:sesionId,Programa:'presentismo',Modo:'DSP'}, function(err, permiso) {

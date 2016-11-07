@@ -2,7 +2,11 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <div class="content">
+    <button type="reset" id="cancelar" class="btn btn-primary" onClick="location.reload()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" name="submit" value="enviar">Enviar</button>
+    <div id="status"></div>
+  </div>
 
   <% if (typeof(mensaje) !== 'undefined') { -%>
     <div class="alert alert-danger">
@@ -13,3 +17,5 @@
   <% if (typeof m.texto1 !== 'undefined' && m.texto1 !== null) { %><%- m.texto1 %><% } %>
   <% if (typeof m.texto2 !== 'undefined' && m.texto2 !== null) { %><%- m.texto2 %><% } %>
 </form>
+
+<div id='dialog-message' title=''></div>
