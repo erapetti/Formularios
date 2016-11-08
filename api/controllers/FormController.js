@@ -15,6 +15,9 @@ module.exports = {
 		if (sails.config.environment === "development") {
 			sessionid = '9728448076454730240';
 		} else {
+			if (typeof req.cookies.SESION !== "string") {
+				return res.forbidden(new Error("Debe iniciar sesión en el portal de servicios"));
+			}
 			sessionid = req.cookies.SESION.replace(/[+ ]/g,'');
 		}
 		wsPortal.getSession(sessionid, function(err,session) {
