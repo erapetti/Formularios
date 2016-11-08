@@ -1,12 +1,12 @@
 <%if (typeof m.texto1 !== 'undefined' && m.texto1 !== null) { %><%- m.texto1 %><% } %>
 <%if (typeof m.texto2 !== 'undefined' && m.texto2 !== null) { %><%- m.texto2 %><% } %>
 
-<% if (id) { %>
+<% if (typeof recibido !== "undefined") { %>
   <div class="content">
     <button type="button" class="btn btn-primary" id="print" onClick="window.print()">Imprimir comprobante</button>
   </div>
   <script type="text/javascript">
-    var  bloqueado = false;
+    var  bloqueado = true;
   </script>
 <% } %>
 
@@ -15,12 +15,20 @@
   <div class="panel panel-default content">
     <div class="panel-body">
       <table class="table">
-<% if (id) { %>
+<% if (typeof recibido !== "undefined") { %>
         <tr>
           <td class="col-sm-3">
-            <span class="input-group-addon" id="campo-0">Número de registro:</span>
+            <span class="input-group-addon" id="registro-0">Número de registro:</span>
           </td><td class="col-sm-6">
-            <input type="text" class="form-control" aria-describedby="campo-0" value="<%= id %>" readonly="readonly">
+            <input type="text" class="form-control" aria-describedby="registro-0" value="<%= recibido.id %>" readonly="readonly">
+          </td><td class="col-sm-3">
+          </td>
+        </tr>
+        <tr>
+          <td class="col-sm-3">
+            <span class="input-group-addon" id="registro-1">Fecha de registro:</span>
+          </td><td class="col-sm-6">
+            <input type="text" class="form-control" aria-describedby="registro-1" value="<%= recibido.updatedAt %>" readonly="readonly">
           </td><td class="col-sm-3">
           </td>
         </tr>

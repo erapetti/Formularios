@@ -2,13 +2,13 @@
   <td class="col-sm-3">
     <span class="input-group-addon" id="campo-<%= m.id%>"><%= m.etiqueta %>:</span>
   </td><td class="col-sm-6">
-    <input type="hidden" class="asignatura" validate="asignatura" id="dd-<%= m.id%>" name="<%= m.nombre %>" value="<% if (typeof m.value !== 'undefined') {%><%= m.value %><% } %>">
+    <input type="hidden" class="asignatura"<% if (typeof m.validador !== 'undefined') { %> validate="<%= m.validador %>"<% } %> id="dd-<%= m.id%>" name="<%= m.nombre %>" value="<% if (typeof m.value !== 'undefined') {%><%= m.value %><% } %>">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="btn-dd-<%= m.id%>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         Seleccione una opción
         <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu" aria-labelledby="btn-dd-<%= m.id%>">
+      <ul class="dropdown-menu" dd="<%= m.id %>" aria-labelledby="btn-dd-<%= m.id%>">
         <% m.options.forEach(function(asignatura){ -%>
           <li><a data="<%= asignatura.AsignId %>" dd="<%= m.id %>" href="#"><%= asignatura.AsignDesc %></a></li>
         <% }) %>

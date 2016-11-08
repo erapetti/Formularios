@@ -4,6 +4,16 @@ $(document).ready(function() {
   var percent = $('#percent');
   var status = $('#status');
 
+  // inicialización de los dropdown-menu
+  $("ul.dropdown-menu").each(function(index,obj){
+    var campo = $(this).attr('dd');
+    var val = $('#dd-'+campo).val();
+    if (typeof val !== 'undefined' && val!=="") {
+      var texto = $("ul.dropdown-menu li a[data="+val+"]").text();
+      // actualizo etiqueta del botón
+      $('#btn-dd-'+campo).html( texto + ' <span class="caret"></span>');
+    }
+  });
   // actualización de los dropdown-menu
   $("ul.dropdown-menu li a").click(function(event) {
     event.preventDefault();
@@ -13,7 +23,7 @@ $(document).ready(function() {
     $('#btn-dd-'+$(this).attr('dd')).html( $(this).text() + ' <span class="caret"></span>');
   });
 
-  if (bloqueado) { // se carga en intro.ejs
+  if (typeof bloqueado !== 'undefined') { // se carga en intro.ejs
     bloquear();
   } else {
     $('#myForm input').prop('disabled',false);
@@ -72,12 +82,14 @@ function show(que) {
         que.fadeIn('slow');
 };
 function bloquear() {
-  $('#myForm [type=submit]').hide();
-  $('#myForm input').prop('disabled',true);
-  $("ul.dropdown-menu li a").click(function(){});
-  $('#myForm *').css('background-color','#eee');
-  $("body").css("cursor", "default");
   $("#cancelar").hide();
+  $('#myForm [type=submit]').hide();
+  $('#myForm').prop('disabled',true);
+  $('#myForm input').prop('disabled',true);
+  $('#myForm .dropdown button').prop('disabled',true);
+  $('#myForm *').css('background-color','#eee');
+  $("#myForm a").css('display','none');
+  $("body").css("cursor", "default");
 };
 function validate_asignatura(item) {
   if (!item.value || item.value==="") {
@@ -96,7 +108,7 @@ function validate() {
         mensaje('','black');
         var errores=0;
         $('#myForm *').filter(':input').each(function(index,item) {
-          if (item.getAttribute("validate") && !item.readOnly) {
+          if (item.getAttribute("validate") && item.getAttribute("validate")!=='null' && !item.readOnly) {
             // llamo a la función de validación
             if (!window["validate_"+item.getAttribute("validate")](item)) {
               errores+=1;

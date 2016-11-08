@@ -6,14 +6,14 @@
  */
 
  module.exports = {
- 	load: function(param,callback) {
+ 	load: function(param,resolve,reject) {
  		Personas.telefono(param.config.ci, function(err,telefono) {
  			if (err) {
- 				param.config.err.push(err);
+ 				return reject(err);
  			} else {
  				param.m.value = telefono.PerTelNro;
+        return resolve(undefined);
  			}
- 			callback(err);
  		});
- 	}
+ 	},
  };
