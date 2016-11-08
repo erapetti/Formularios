@@ -2,7 +2,7 @@
 
 
 module.exports = {
-	getSession: function(sesionId, callback) {
+	getSession: function(sesionId, url, callback) {
 		// recibe string con el número de sesión
 		// llama a callback con parámetros err y {Sesionesid,Userid,Dependid,Lugarid}
 		if (typeof sesionId === 'undefined' || ! sesionId.match(/^ *([a-zA-Z\d]+) *$/)) {
@@ -18,7 +18,7 @@ module.exports = {
 				if (!result || !result.Userid) {
 					return callback(new Error("Sesión no válida. Reinicie su conexión con el portal de servicios"),undefined);
 				}
-				wsPortal.leoPermiso({Sesionesid:sesionId,Programa:'presentismo',Modo:'DSP'}, function(err, permiso) {
+				wsPortal.leoPermiso({Sesionesid:sesionId,Programa:url,Modo:'DSP'}, function(err, permiso) {
 					if (err) {
 						return callback(err, undefined);
 					}
