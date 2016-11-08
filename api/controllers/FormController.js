@@ -66,10 +66,8 @@ module.exports = {
 				});
 
 				// espero a que termine la carga...
-				Promise.all(requests).catch(function(error){
-					return res.serverError(error);  // error en alguna promise
-
-				}).then(function(){
+				Promise.all(requests).then(function(){
+					// todas las propises terminaron resolved (i.e. con éxito)
 					Recibidos.findOne({formid:formid,cedula:config.ci}).exec(function(err,recibido) {
 						if (err) {
 							return res.serverError(err);
@@ -120,6 +118,8 @@ module.exports = {
 							return res.view({title:config.titulo,config:config,id:undefined});
 						}
 					});
+				}).catch(function(error){
+					return res.serverError(error);  // error en alguna promise
 				});
 			});
 		});

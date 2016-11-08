@@ -21,4 +21,9 @@ input.form-control {font-size:100%;}
   #myForm .table > tbody > tr > td:nth-child(3) {display:none;}
   #myForm .form-control[readonly] {background-color:transparent;color:black;}
   #myForm a {display:none;}
+  ::-webkit-input-placeholder {color:transparent !important;}
+  :-moz-placeholder {color:transparent !important;}
+  ::-moz-placeholder {color:transparent !important;}
+  :-ms-input-placeholder {color:transparent !important;}
+  ::placeholder {color:transparent !important;}
 }

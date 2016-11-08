@@ -9,12 +9,12 @@ $(document).ready(function() {
     var campo = $(this).attr('dd');
     var val = $('#dd-'+campo).val();
     if (typeof val !== 'undefined' && val!=="") {
-      var texto = $("ul.dropdown-menu li a[data="+val+"]").text();
+      var texto = $("ul.dropdown-menu[dd="+campo+"] li a[data="+val+"]").text();
       // actualizo etiqueta del botón
       $('#btn-dd-'+campo).html( texto + ' <span class="caret"></span>');
     }
   });
-  // actualización de los dropdown-menu
+  // función para actualizar los dropdown-menu cuando el usuario selecciona una opción
   $("ul.dropdown-menu li a").click(function(event) {
     event.preventDefault();
     // actualizo input
@@ -27,6 +27,7 @@ $(document).ready(function() {
     bloquear();
   } else {
     $('#myForm input').prop('disabled',false);
+    $('#myForm .dropdown button').prop('disabled',false);
   }
 
   $('#myForm').ajaxForm({
@@ -87,28 +88,22 @@ function bloquear() {
   $('#myForm').prop('disabled',true);
   $('#myForm input').prop('disabled',true);
   $('#myForm .dropdown button').prop('disabled',true);
-  $('#myForm *').css('background-color','#eee');
+  $('#myForm *').css('background-color','#f2f2f2');
   $("#myForm a").css('display','none');
   $("body").css("cursor", "default");
 };
-function validate_asignatura(item) {
-  if (!item.value || item.value==="") {
-    return false;
-  }
-  return true;
+function validate_novacio(item) {
+  return (item.value && item.value!=="");
 };
 function validate_numero(item) {
   var re = /^[0-9]+$/;
-  if (!re.test(item.value)) {
-    return false;
-  }
-  return true;
+  return (re.test(item.value));
 };
 function validate() {
         mensaje('','black');
         var errores=0;
         $('#myForm *').filter(':input').each(function(index,item) {
-          if (item.getAttribute("validate") && item.getAttribute("validate")!=='null' && !item.readOnly) {
+          if (item.getAttribute("validate") && !item.readOnly && item.getAttribute("optional")!=='true') {
             // llamo a la función de validación
             if (!window["validate_"+item.getAttribute("validate")](item)) {
               errores+=1;

@@ -1,5 +1,5 @@
-<%if (typeof m.texto1 !== 'undefined' && m.texto1 !== null) { %><%- m.texto1 %><% } %>
-<%if (typeof m.texto2 !== 'undefined' && m.texto2 !== null) { %><%- m.texto2 %><% } %>
+<%if (m.texto1) { %><%- m.texto1 %><% } %>
+<%if (m.texto2) { %><%- m.texto2 %><% } %>
 
 <% if (typeof recibido !== "undefined") { %>
   <div class="content">

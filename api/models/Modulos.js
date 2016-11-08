@@ -28,5 +28,7 @@ module.exports = {
     ayuda: 'string',
     etiqueta: 'string',
     validador: 'string',
+    validador_param: 'string',
+    opcional: 'boolean',
   }
 };
