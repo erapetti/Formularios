@@ -35,7 +35,15 @@ module.exports.routes = {
   '/': {
     controller: 'form',
     action: 'index'
-  }
+  },
+  '/admin': {
+    controller: 'admin',
+    action: 'index'
+  },
+  '/admin/csv': {
+    controller: 'admin',
+    action: 'download'
+  },
 
   /***************************************************************************
   *                                                                          *

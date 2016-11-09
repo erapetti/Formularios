@@ -8,8 +8,9 @@
 body {font-family:Lato,SansSerif;font-size:16px;}
 h3 {font-size:150% !important;}
 div.content { margin:2em }
-span.input-group-addon {font-weight:bold;font-size:100%;background-color:transparent;border:0;text-align:right;}
-input.form-control {font-size:100%;}
+#form {margin:2em;width:90%;}
+#myForm span.input-group-addon {font-weight:bold;font-size:100%;background-color:transparent;border:0;text-align:right;}
+#myForm input.form-control {font-size:100%;}
 #myForm {padding:1em;}
 #myForm .table:first-child > tbody > tr:first-child > td {border-top: none;}
 #myForm .red {border-color:red;}
@@ -27,3 +28,8 @@ input.form-control {font-size:100%;}
   :-ms-input-placeholder {color:transparent !important;}
   ::placeholder {color:transparent !important;}
 }
+
+#admin {margin:2em;width:90%;}
+#admin table.formularios td.nth-child(5),
+#admin table.formularios td.nth-child(5) {text-align:center;}
+#admin table.formularios span.badge a {color:white;font-size:150%;}
