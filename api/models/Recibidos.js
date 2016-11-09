@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  connection: 'config',
+  connection: 'formularios',
   migrate: 'alter',
   attributes: {
     formid: {
