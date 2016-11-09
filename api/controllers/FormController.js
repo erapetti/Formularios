@@ -30,6 +30,7 @@ module.exports = {
 				session = {Sesionesid:1,Userid:'u18753938',Dependid:5830,Lugarid:5830};
 			}
 			if (err) {
+				sails.log("forbidden", req.url, err);
 				return res.forbidden(err);
 			}
 

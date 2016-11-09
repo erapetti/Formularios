@@ -64,17 +64,26 @@ module.exports = {
 
   correo: function(perci,callback) {
     return this.query(`
-      SELECT perid,PerMailDir
+      SELECT perid,email PerMailDir
+      FROM sso.sso
+      JOIN PERSONASDOCUMENTOS
+      WHERE UserId = concat('u',?)
+        AND activa='S'
+        AND PAISCOD='UY'
+        AND DOCCOD='CI'
+        AND PERDOCID=?
+      UNION
+      (SELECT perid,PerMailDir
       FROM PERSONASDOCUMENTOS
       JOIN PERSONASMAILS
       USING (PerId)
       WHERE PAISCOD='UY'
         AND DOCCOD='CI'
         AND PERDOCID=?
-      ORDER BY PerMailId DESC
+      ORDER BY PerMailId DESC)
       LIMIT 1
     `,
-    [perci],
+    [perci,perci,perci],
     function(err,result){
       if (err) {
         return callback(err, undefined);
