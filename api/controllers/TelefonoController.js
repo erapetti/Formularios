@@ -11,7 +11,7 @@
  			if (err) {
  				return reject(err);
  			} else {
- 				param.m.value = telefono.PerTelNro;
+        param.m.value = typeof telefono !== 'undefined' ? telefono.PerTelNro : "";
         return resolve(undefined);
  			}
  		});

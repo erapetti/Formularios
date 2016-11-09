@@ -11,7 +11,7 @@
  			if (err) {
  				return reject(err);
  			} else {
- 				param.m.value = correo.PerMailDir;
+ 				param.m.value = typeof correo !== 'undefined' ? correo.PerMailDir : "";
         return resolve(undefined);
  			}
  		});

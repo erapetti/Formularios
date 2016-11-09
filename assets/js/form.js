@@ -103,7 +103,7 @@ function validate() {
         mensaje('','black');
         var errores=0;
         $('#myForm *').filter(':input').each(function(index,item) {
-          if (item.getAttribute("validate") && !item.readOnly && item.getAttribute("optional")!=='true') {
+          if (item.getAttribute("validate") && (item.getAttribute("optional")!=='true' || item.value && item.value!=="")) {
             // llamo a la función de validación
             if (!window["validate_"+item.getAttribute("validate")](item)) {
               errores+=1;

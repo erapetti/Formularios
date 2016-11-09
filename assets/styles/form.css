@@ -34,5 +34,6 @@ div.content { margin:2em }
 #admin table.formularios td:nth-child(5),
 #admin table.formularios th:nth-child(6),
 #admin table.formularios td:nth-child(6) {text-align:center;}
-#admin table.formularios span.badge {font-size:110%;}
+#admin table.formularios span.badge {font-size:100%;}
+#admin table.formularios:first-child > tbody > tr:first-child > th {border-top: none;}
 #admin a.disabled span {color:#888;}

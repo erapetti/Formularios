@@ -11,8 +11,9 @@ module.exports = {
 			if (err) {
 				return reject(err);
 			} else {
-				param.m.value = persona.pernombrecompleto;
-				if (!param.config.perid) {
+
+				param.m.value = typeof persona !== 'undefined' ? persona.pernombrecompleto : "";
+				if (!param.config.perid && typeof persona !== 'undefined') {
 							param.config.perid = persona.perid;
 				}
 				return resolve(undefined);
