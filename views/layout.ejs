@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% if (sails.config.environment === 'development') { %><base href="/node/formularios/index"><% } %>
     <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!--STYLES-->
@@ -15,7 +14,7 @@
   <body>
     <%- body %>
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
     <!--SCRIPTS-->
     <script src="/js/dependencies/0_jquery/jquery.min.js"></script>

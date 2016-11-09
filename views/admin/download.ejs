@@ -9,6 +9,6 @@ config.modulos.forEach(function(m){
 <% recibido.forEach(function(item) { -%>
 "<%= item.cedula %>"	"<%= item.nombre %>"	"<%= item.correo %>"	"=""<%= item.telefono %>"""<%
   cols.forEach(function(c){ -%>	"<%- item.json[c] || item.json[c]==0 ? item.json[c] : '' %>"<%
-  })
-}) %>
+  }) %>
 
+<% }) -%>
