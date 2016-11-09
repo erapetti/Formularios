@@ -20,7 +20,7 @@ module.exports = {
 			}
 			sessionid = req.cookies.SESION.replace(/[+ ]/g,'');
 		}
-		wsPortal.getSession(sessionid, req.connection.url, function(err,session) {
+		wsPortal.getSession(sessionid, req.url, function(err,session) {
 			if (sails.config.environment === "development") {
 				err = undefined;
 				//session = {Sesionesid:1,Userid:'u10121248',Dependid:1023,Lugarid:1023};
