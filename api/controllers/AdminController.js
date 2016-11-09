@@ -30,7 +30,7 @@ module.exports = {
 				return res.forbidden(err);
 			}
 
-			Config.find().exec(function(err,config){
+			Config.find().sort('formid desc').exec(function(err,config){
 				if (err) {
 					return res.serverError(err);
 				}

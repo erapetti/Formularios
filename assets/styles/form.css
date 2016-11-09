@@ -30,6 +30,9 @@ div.content { margin:2em }
 }
 
 #admin {margin:2em;width:90%;}
-#admin table.formularios td.nth-child(5),
-#admin table.formularios td.nth-child(5) {text-align:center;}
-#admin table.formularios span.badge a {color:white;font-size:150%;}
+#admin table.formularios th:nth-child(5),
+#admin table.formularios td:nth-child(5),
+#admin table.formularios th:nth-child(6),
+#admin table.formularios td:nth-child(6) {text-align:center;}
+#admin table.formularios span.badge {font-size:110%;}
+#admin a.disabled span {color:#888;}
