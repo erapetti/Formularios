@@ -2,7 +2,7 @@
   <td class="col-sm-3">
     <span class="input-group-addon" id="correo-<%= m.id%>"><%= m.etiqueta %>:</span>
   </td><td class="col-sm-6">
-    <input type="text" class="form-control" placeholder="<%= m.ayuda %>" aria-describedby="correo-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly">
+    <input type="text" class="form-control"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="correo-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly">
   </td><td class="col-sm-3">
     <% if (! m.value.match(/@ces\.edu\.uy$/)) { %>
       <a href="http://servicios.ces.edu.uy/ces/cgi-bin/pwd/cambiar_datos.pl">cambiar</a>

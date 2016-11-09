@@ -6,14 +6,14 @@
  */
 
  module.exports = {
- 	load: function(param,callback) {
+ 	load: function(param,resolve,reject) {
  		Asignaturas.find().sort("AsignDesc").exec(function(err,asignaturas) {
  			if (err) {
- 				param.config.err.push(err);
+ 				return reject(err);
  			} else {
 				param.m.options = asignaturas;
+        return resolve(undefined);
  			}
- 			callback(err);
  		});
- 	}
+ 	},
  };

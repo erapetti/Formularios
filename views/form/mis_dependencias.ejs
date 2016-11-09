@@ -9,8 +9,8 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" dd="<%= m.id %>" aria-labelledby="btn-dd-<%= m.id%>">
-        <% m.options.forEach(function(asignatura){ -%>
-          <li><a data="<%= asignatura.AsignId %>" dd="<%= m.id %>" href="#"><%= asignatura.AsignDesc %></a></li>
+        <% m.options.forEach(function(dependencia){ -%>
+          <li><a data="<%= dependencia.DependId %>" dd="<%= m.id %>" href="#"><%= dependencia.DependDesc %></a></li>
         <% }) %>
       </ul>
     </div>

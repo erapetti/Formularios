@@ -6,8 +6,8 @@
  */
 
  module.exports = {
- 	load: function(param, callback) {
+ 	load: function(param, resolve, reject) {
  		param.m.value = param.config.ci;
- 		callback(undefined);
- 	}
+ 		return resolve(undefined);
+ 	},
  };

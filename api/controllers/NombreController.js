@@ -6,17 +6,17 @@
  */
 
 module.exports = {
-	load: function(param,callback) {
+	load: function(param,resolve,reject) {
 		Personas.nombre(param.config.ci, function(err,persona) {
 			if (err) {
-				param.config.err.push(err);
+				return reject(err);
 			} else {
 				param.m.value = persona.pernombrecompleto;
 				if (!param.config.perid) {
 							param.config.perid = persona.perid;
 				}
+				return resolve(undefined);
 			}
-			callback(err);
 		});
-	}
+	},
 };

@@ -1,17 +1,17 @@
 /**
- * CorreoController
+ * Mis_dependenciasController
  *
- * @description :: Server-side logic for managing correos
+ * @description :: Server-side logic for managing mis_dependencias
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
  module.exports = {
  	load: function(param,resolve,reject) {
- 		Personas.correo(param.config.ci, function(err,correo) {
+ 		Dependencias.misDependencias(param.config.ci, function(err,dependencias) {
  			if (err) {
  				return reject(err);
  			} else {
- 				param.m.value = correo.PerMailDir;
+				param.m.options = dependencias;
         return resolve(undefined);
  			}
  		});

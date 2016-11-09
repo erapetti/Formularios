@@ -31,12 +31,12 @@ module.exports = {
     [perci],
     function(err,result){
       if (err) {
-        return err
+        return callback(err, undefined);
       }
       if (result===null) {
         return new Error("No se pueden obtener los datos de la persona",undefined);
       }
-      callback(undefined, (result===null ? undefined : result[0]));
+      return callback(undefined, (result===null ? undefined : result[0]));
     });
   },
 
@@ -56,9 +56,9 @@ module.exports = {
     [perci],
     function(err,result){
       if (err) {
-        return err
+        return callback(err, undefined);
       }
-      callback(undefined, (result===null ? undefined : result[0]));
+      return callback(undefined, (result===null ? undefined : result[0]));
     });
   },
 
@@ -77,9 +77,9 @@ module.exports = {
     [perci],
     function(err,result){
       if (err) {
-        return err
+        return callback(err, undefined);
       }
-      callback(undefined, (result===null ? undefined : result[0]));
+      return callback(undefined, (result===null ? undefined : result[0]));
     });
   },
 

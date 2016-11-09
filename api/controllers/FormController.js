@@ -15,9 +15,12 @@ module.exports = {
 		if (sails.config.environment === "development") {
 			sessionid = '9728448076454730240';
 		} else {
+			if (typeof req.cookies.SESION !== "string") {
+				return res.forbidden(new Error("Debe iniciar sesión en el portal de servicios"));
+			}
 			sessionid = req.cookies.SESION.replace(/[+ ]/g,'');
 		}
-		wsPortal.getSession(sessionid, function(err,session) {
+		wsPortal.getSession(sessionid, req.url, function(err,session) {
 			if (sails.config.environment === "development") {
 				err = undefined;
 				//session = {Sesionesid:1,Userid:'u10121248',Dependid:1023,Lugarid:1023};
@@ -53,25 +56,21 @@ module.exports = {
 					return res.view("error.ejs", {title:config.titulo, mensaje:"Formulario deshabilitado porque estamos fuera del período de validez"});
 				}
 
-				config.err = Array();
 // console.log(config);
 
 				// cargo el código js de los módulos que están activos en este formulario
 				var requests = config.modulos.map(function(m) {
 					try {
 						var c = require("./"+m.modid.capitalizeFirstLetter()+"Controller.js");
-						return new Promise(function(resolve) {
-							c.load({config:config, m:m}, resolve);
+						return new Promise(function(resolve,reject) {
+							c.load({config:config, m:m}, resolve, reject);
 						});
 					} catch(e) {if(e.code!=="MODULE_NOT_FOUND") {console.log("catch",e);}};
 				});
+
 				// espero a que termine la carga...
 				Promise.all(requests).then(function(){
-					if (config.err.length > 0) {
-						console.log("error",err);
-						return res.serverError("ERROR");
-					}
-
+					// todas las propises terminaron resolved (i.e. con éxito)
 					Recibidos.findOne({formid:formid,cedula:config.ci}).exec(function(err,recibido) {
 						if (err) {
 							return res.serverError(err);
@@ -79,7 +78,19 @@ module.exports = {
 
 						if (recibido) {
 							// ya está registrado el usuario para este formulario
-							return res.view({title:config.titulo,config:config,id:recibido.id});
+
+							// recorro el json guardado en la base y voy cargando los valores
+							// en los m.value correspondientes para poder mostrarlos en la UI
+							Object.keys(recibido.json).forEach(function(prop) {
+								config.modulos.map(function(m){
+									if (m.nombre===prop) {
+										// console.log("encontré en "+m.modid+" = "+recibido.json[prop]);
+										m.value = recibido.json[prop];
+									}
+								});
+							});
+							recibido.updatedAt = recibido.updatedAt.fecha_toString();
+							return res.view({title:config.titulo,config:config,recibido:recibido});
 						}
 
 						if (req.param('submit')) {
@@ -107,15 +118,20 @@ module.exports = {
 								return res.view("ajax.ejs",{layout:'',mensaje:"Quedó registrado con el número "+record.id+"\nOK"});
 							});
 						} else {
-							return res.view({title:config.titulo,config:config});
+							return res.view({title:config.titulo,config:config,id:undefined});
 						}
-					}).catch(function(error) {
-						console.log(error);
 					});
+				}).catch(function(error){
+					return res.serverError(error);  // error en alguna promise
 				});
 			});
 		});
 	},
+};
+
+Date.prototype.fecha_toString = function() {
+	var sprintf = require("sprintf");
+	return sprintf("%02d/%02d/%04d", this.getDate(),this.getMonth()+1,this.getFullYear());
 };
 
 String.prototype.capitalizeFirstLetter = function() {

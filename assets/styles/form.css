@@ -5,18 +5,25 @@
   src: local('Lato Regular'), local('Lato-Regular'), url(/styles/fonts/LatoRegular.ttf) format('truetype');
 }
 
-body { font-family:Lato,SansSerif;font-size:12pt; }
+body {font-family:Lato,SansSerif;font-size:16px;}
+h3 {font-size:150% !important;}
 div.content { margin:2em }
-span.input-group-addon {font-weight:bold;font-size:12pt;background-color:transparent;border:0;text-align:right;}
-input.form-control {font-size:12pt;}
+span.input-group-addon {font-weight:bold;font-size:100%;background-color:transparent;border:0;text-align:right;}
+input.form-control {font-size:100%;}
 #myForm {padding:1em;}
 #myForm .table:first-child > tbody > tr:first-child > td {border-top: none;}
 #myForm .red {border-color:red;}
 #status {margin-bottom:2em;margin-top:1em;display:inline;}
 
 @media print {
-  body {font-size:9pt;}
+  body {font-size:8pt;}
   button.btn[type=submit],button.btn[type=reset],button#print {display:none;}
   #myForm .table > tbody > tr > td:nth-child(3) {display:none;}
   #myForm .form-control[readonly] {background-color:transparent;color:black;}
+  #myForm a {display:none;}
+  ::-webkit-input-placeholder {color:transparent !important;}
+  :-moz-placeholder {color:transparent !important;}
+  ::-moz-placeholder {color:transparent !important;}
+  :-ms-input-placeholder {color:transparent !important;}
+  ::placeholder {color:transparent !important;}
 }
