@@ -14,6 +14,7 @@ module.exports = {
     formid: {
       type: 'integer',
       primaryKey: true,
+      autoIncrement: true,
     },
     desde: 'datetime',
     hasta: 'datetime',

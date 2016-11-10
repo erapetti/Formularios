@@ -40,10 +40,7 @@ module.exports.routes = {
     controller: 'admin',
     action: 'index'
   },
-  '/admin/csv': {
-    controller: 'admin',
-    action: 'download'
-  },
+
 
   /***************************************************************************
   *                                                                          *
