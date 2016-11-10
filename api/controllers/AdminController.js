@@ -234,6 +234,48 @@ module.exports = {
 		});
 	},
 
+	edit: function (req, res) {
+
+		var sessionid;
+		if (sails.config.environment === "development") {
+			sessionid = '9728448076454730240';
+		} else {
+			if (typeof req.cookies.SESION !== "string") {
+				return res.forbidden(new Error("Debe iniciar sesión en el portal de servicios"));
+			}
+			sessionid = req.cookies.SESION.replace(/[+ ]/g,'');
+		}
+		wsPortal.getSession(sessionid, req.url.substr(1).replace(/\?.*/,''), function(err,session) {
+			if (sails.config.environment === "development") {
+				err = undefined;
+				//session = {Sesionesid:1,Userid:'u10121248',Dependid:1023,Lugarid:1023};
+				//session = {Sesionesid:1,Userid:'u19724241',Dependid:1023,Lugarid:1023};
+				//session = {Sesionesid:1,Userid:'u13683344',Dependid:1023,Lugarid:1023};
+				session = {Sesionesid:1,Userid:'u17488617',Dependid:1023,Lugarid:1023};
+			}
+			if (err) {
+				return res.json({code:403,message:err.message});
+			}
+
+			var formid = req.param('id');
+			if (!(formid>0)) {
+				return res.json({code:500,message:"Parámetros incorrectos"});
+			}
+
+			Config.findOne({formid:formid}).populate('modulos',{sort:'orden'}).exec(function(err,config){
+				if (err) {
+					return res.json({code:500,message:err.message});
+				}
+
+				if (!config) {
+					return res.json({code:500,message:"No existe el formulario solicitado"});
+				}
+
+				return res.json(500,{code:200,message:"OK"});
+			});
+		});
+	},
+
 };
 
 Date.prototype.toString = function() {

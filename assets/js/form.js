@@ -95,6 +95,33 @@ function adminInit() {
       openDialog(resp.code==200 ? "Acción realizada" : "ERROR", resp.message);
     });
   });
+  $('#admin a[edit]').click(function(event){
+    event.preventDefault();
+    var formid = $(this).attr('edit');
+    var titulo = $('#admin tr[formid='+formid+'] td:nth-child(2)').html().trim();
+    var desde = $('#admin tr[formid='+formid+'] td:nth-child(3)').html().trim();
+    var hasta = $('#admin tr[formid='+formid+'] td:nth-child(4)').html().trim();
+    $('#myModal .modal-body input[name=id]').val(formid);
+    $('#myModal .modal-body input[name=titulo]').val(titulo);
+    $('#myModal .modal-body input[name=desde]').val(desde);
+    $('#myModal .modal-body input[name=hasta]').val(hasta);
+  });
+  $('#myModal #modalSubmit').click(function(event){
+    var formid = $('#myModal .modal-body input[name=id]').val();
+    var titulo = $('#myModal .modal-body input[name=titulo]').val();
+    var desde = $('#myModal .modal-body input[name=desde]').val();
+    var hasta = $('#myModal .modal-body input[name=hasta]').val();
+    $.post("admin/edit", {id:formid,titulo:titulo,desde:desde,hasta:hasta})
+      .done(function() {
+        //window.location.assign('');
+      })
+      .fail(function(data,text) {
+        alert(data);
+        //alert(JSON.parse(data));
+        $('#myModal #message').html(text);
+        $('#myModal #message').removeClass("hidden");
+      });
+  });
 };
 
 function mensaje(texto,color) {
