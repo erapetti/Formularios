@@ -117,28 +117,28 @@ module.exports = {
 				session = {Sesionesid:1,Userid:'u17488617',Dependid:1023,Lugarid:1023};
 			}
 			if (err) {
-				return res.forbidden(err);
+				return res.json({code:403,message:err.message});
 			}
 
 			var formid = req.param('id');
 			if (!(formid>0)) {
-				return res.serverError(new Error("Parámetros incorrectos"));
+				return res.json({code:500,message:"Parámetros incorrectos"});
 			}
 
 			Config.findOne({formid:formid}).populate('modulos',{sort:'orden'}).exec(function(err,config){
 				if (err) {
-					return res.serverError(err);
+					return res.json({code:500,message:err.message});
 				}
 
 				if (!config) {
-					return res.serverError(new Error("No existe el formulario solicitado"));
+					return res.json({code:500,message:"No existe el formulario solicitado"});
 				}
 
 				// duplico el formulario
 				var formulario = {titulo:"Copia de "+config.titulo};
 				Config.create(formulario).exec(function(err,form){
 					if (err) {
-						return res.serverError(err);
+						return res.json({code:500,message:err.message});
 					}
 
 					// duplico los módulos
@@ -151,11 +151,11 @@ module.exports = {
 					});
 					Promise.all(requests).then(function(){
 
-						return res.view("ajax.ejs",{layout:'',mensaje:"Quedó registrado con el número "+form.formid+"\nOK"});
+						return res.json({code:200,message:"Quedó registrado con el número "+form.formid});
 					}).catch(function(){
 
 						console.log("ERROR al copiar módulos");
-						return res.view("ajax.ejs",{layout:'',mensaje:"Error al copiar los módulos del nuevo formulario "+form.formid+"\nERROR"});
+						return res.json({code:500,message:"Error al copiar los módulos del nuevo formulario "+form.formid});
 					});
 				});
 			});
@@ -182,30 +182,30 @@ module.exports = {
 				session = {Sesionesid:1,Userid:'u17488617',Dependid:1023,Lugarid:1023};
 			}
 			if (err) {
-				return res.forbidden(err);
+				return res.json({code:403,message:err.message});
 			}
 
 			var formid = req.param('id');
 			if (!(formid>0)) {
-				return res.serverError(new Error("Parámetros incorrectos"));
+				return res.json({code:500,message:"Parámetros incorrectos"});
 			}
 
 			Config.findOne({formid:formid}).populate('modulos',{sort:'orden'}).exec(function(err,config){
 				if (err) {
-					return res.serverError(err);
+					return res.json({code:500,message:err.message});
 				}
 
 				if (!config) {
-					return res.serverError(new Error("No existe el formulario solicitado"));
+					return res.json({code:500,message:"No existe el formulario solicitado"});
 				}
 
 				Recibidos.find({formid:formid}).exec(function(err,recibido) {
 					if (err) {
-						return res.serverError(err);
+						return res.json({code:500,message:err.message});
 					}
 
 					if (recibido && recibido.length>0) {
-						return res.view("ajax.ejs",{layout:'',mensaje:"No se puede borrar un formulario que tiene envíos recibidos\nERROR"});
+						return res.json({code:500,message:"No se puede borrar un formulario que tiene envíos recibidos"});
 					}
 
 					// borro los módulos
@@ -218,15 +218,16 @@ module.exports = {
 						Config.destroy({formid:formid}).exec(function(err) {
 							if (err) {
 								console.log("ERROR al borrar formulario "+formid,err);
-								return res.view("ajax.ejs",{layout:'',mensaje:"Error al borrar formulario "+formid+"\nERROR"});
+								return res.json({code:500,message:"Error al borrar formulario "+formid});
 							}
-							return res.view("ajax.ejs",{layout:'',mensaje:"Quedó borrado el formulario "+formid+"\nOK"});
+
+							return res.json({code:200,message:"Quedó borrado el formulario "+formid});
 						});
 
 					}).catch(function(err){
 
 						console.log("ERROR al borrar los módulos del formulario "+formid,err);
-						return res.view("ajax.ejs",{layout:'',mensaje:"Error al borrar los módulos del formulario "+formid+"\nERROR"});
+						return res.json({code:500,message:"Error al borrar los módulos del formulario "+formid});
 					});
 				});
 			});

@@ -1,4 +1,12 @@
 $(document).ready(function() {
+  if ($("#form").length) {
+    formInit();
+  } else if ($("#admin").length) {
+    adminInit();
+  }
+});
+
+function formInit() {
 
   var bar = $('#bar');
   var percent = $('#percent');
@@ -50,21 +58,8 @@ $(document).ready(function() {
       percent.html(percentVal);
     },
     complete: function(xhr) {
-      $('#dialog-message').html(xhr.responseText.replace('OK','').replace('ERROR: ',''));
-      $('#dialog-message').prop('title', xhr.responseText.indexOf('OK')==-1 ? "ERROR" : "Formulario enviado con éxito");
-      $(function() {
-        $('#dialog-message').dialog({
-          modal: true,
-          buttons: {
-                  Cerrar: function() {
-                          $(this).dialog("close");
-                          window.location.assign('');
-                  },
-          },
-          close: function() {
-          }
-        });
-      });
+
+      openDialog(xhr.responseText.indexOf('OK')==-1 ? "ERROR" : "Formulario enviado con éxito", xhr.responseText.replace('OK','').replace('ERROR: ',''));
       mensaje('','');
       bloquear();
       if (xhr.responseText.indexOf('OK')>-1) {
@@ -73,7 +68,34 @@ $(document).ready(function() {
       }
     }
   });
-}); //document ready
+}; // formInit
+
+function openDialog(title,text){
+  $('#dialog-message').html(text);
+  $('#dialog-message').prop('title', title);
+  $(function() {
+    $('#dialog-message').dialog({
+      modal: true,
+      buttons: {
+              Cerrar: function() {
+                      $(this).dialog("close");
+                      window.location.assign('');
+              },
+      },
+      close: function() {
+      }
+    });
+  });
+};
+function adminInit() {
+  $('#admin a[data]').click(function(event){
+    event.preventDefault();
+    var url = $(this).attr('dest')+'?id='+$(this).attr('data');
+    $.getJSON(url, function(resp){
+      openDialog(resp.code==200 ? "Acción realizada" : "ERROR", resp.message);
+    });
+  });
+};
 
 function mensaje(texto,color) {
         $('#status').html(texto);
