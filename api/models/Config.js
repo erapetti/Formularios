@@ -22,7 +22,8 @@ module.exports = {
     modulos: {
       collection: 'modulos',
       via: 'formid'
-    }
+    },
+    activo: 'boolean',
   },
 
   recibidos: function(callback) {

@@ -39,7 +39,7 @@ module.exports = {
 				return res.serverError(new Error("Parámetros incorrectos"));
 			}
 
-			Config.findOne({formid:formid}).populate('modulos',{sort:'orden'}).exec(function(err,config){
+			Config.findOne({formid:formid,activo:true}).populate('modulos',{sort:'orden'}).exec(function(err,config){
 				if (err) {
 					return res.serverError(err);
 				}

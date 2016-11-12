@@ -113,14 +113,19 @@ function adminInit() {
     var hasta = $('#myModal .modal-body input[name=hasta]').val();
     $.post("admin/edit", {id:formid,titulo:titulo,desde:desde,hasta:hasta})
       .done(function() {
-        //window.location.assign('');
+        window.location.assign('');
       })
       .fail(function(data,text) {
-        alert(data);
-        //alert(JSON.parse(data));
-        $('#myModal #message').html(text);
-        $('#myModal #message').removeClass("hidden");
+        var mensaje = "ERROR";
+        try {
+          mensaje = JSON.parse(data.responseText).message;
+        } catch(e) {
+        }
+        $('#myModal #message').html(mensaje).show();
       });
+  });
+  $('#myModal').on('show.bs.modal', function() {
+    $('#myModal #message').hide();
   });
 };
 
