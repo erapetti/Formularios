@@ -26,8 +26,8 @@ module.exports = {
 				//session = {Sesionesid:1,Userid:'u10121248',Dependid:1023,Lugarid:1023};
 				//session = {Sesionesid:1,Userid:'u19724241',Dependid:1023,Lugarid:1023};
 				//session = {Sesionesid:1,Userid:'u13683344',Dependid:1023,Lugarid:1023};
-				session = {Sesionesid:1,Userid:'u17488617',Dependid:1023,Lugarid:1023};
-				//session = {Sesionesid:1,Userid:'u18753938',Dependid:5830,Lugarid:5830};
+				//session = {Sesionesid:1,Userid:'u17488617',Dependid:1023,Lugarid:1023};
+				session = {Sesionesid:1,Userid:'u18753938',Dependid:5830,Lugarid:5830};
 			}
 			if (err) {
 				sails.log("forbidden", req.url, err);
@@ -123,9 +123,9 @@ module.exports = {
 							recibido.json = values;
 							Recibidos.create(recibido).exec(function(err,record){
 								if (err) {
-									return res.serverError(err);
+									return res.json(500,{message:err.message});
 								}
-								return res.view("ajax.ejs",{layout:'',mensaje:"Quedó registrado con el número "+record.id+"\nOK"});
+								return res.json(200,{message:"Quedó registrado con el número "+record.id});
 							});
 						} else {
 							return res.view({title:config.titulo,config:config,id:undefined});

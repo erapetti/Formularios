@@ -39,6 +39,7 @@ function formInit() {
   }
 
   $('#myForm').ajaxForm({
+    dataType: 'json',
     beforeSubmit: validate,
     beforeSend: function() {
       $("body").css("cursor", "progress");
@@ -52,24 +53,35 @@ function formInit() {
       percent.html(percentVal);
       $('#progress').show();
     },
-    success: function() {
+    success: function(response) {
       var percentVal = '100%';
       bar.width(percentVal)
       percent.html(percentVal);
-    },
-    complete: function(xhr) {
-
-      openDialog(xhr.responseText.indexOf('OK')==-1 ? "ERROR" : "Formulario enviado con éxito", xhr.responseText.replace('OK','').replace('ERROR: ',''));
+      openDialog("Formulario enviado con éxito", response.message);
       mensaje('','');
       bloquear();
-      if (xhr.responseText.indexOf('OK')>-1) {
-              $('#comprobante').show();
-              $('#myForm [type=reset]').hide();
+      $('#comprobante').show();
+      $('#myForm [type=reset]').hide();
+    },
+    error: function(response) {
+      var mensaje = "ERROR";
+      try {
+        mensaje = JSON.parse(response.responseText).message;
+      } catch(e) {
       }
+      openDialog("Error al enviar el formulario", mensaje);
     }
   });
-}; // formInit
 
+   $('#myForm textarea').each(function() {
+     autogrow($(this));
+   });
+}; // formInit
+function autogrow(obj) {
+  var matches = obj.val().match(/\n/g);
+  var breaks = matches ? matches.length : 2;
+  obj.attr('rows',breaks + 1);
+};
 function openDialog(title,text){
   $('#dialog-message .modal-title').html(title);
   $('#dialog-message .modal-body').html(text);
@@ -125,7 +137,7 @@ function adminInit() {
       .done(function() {
         window.location.assign('');
       })
-      .fail(function(data,text) {
+      .fail(function(data) {
         var mensaje = "ERROR";
         try {
           mensaje = JSON.parse(data.responseText).message;

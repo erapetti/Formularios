@@ -16,6 +16,7 @@ div.content { margin:2em }
 #myForm .red {border-color:red;}
 #status {margin-bottom:2em;margin-top:1em;display:inline;}
 
+
 @media print {
   body {font-size:8pt;}
   button.btn[type=submit],button.btn[type=reset],button#print {display:none;}
@@ -27,6 +28,12 @@ div.content { margin:2em }
   ::-moz-placeholder {color:transparent !important;}
   :-ms-input-placeholder {color:transparent !important;}
   ::placeholder {color:transparent !important;}
+  input,textarea,button {border:none !important; padding:0 !important; line-height:2em !important;}
+  #myForm .panel {border:none !important;}
+  #myForm .table td, .table th {padding:0 !important;vertical-align:top !important;}
+  #myForm .table span {line-height:2em !important;}
+  #myForm .table td {border:none;}
+  #myForm .table {margin:0;}
 }
 
 #admin {margin:2em;width:90%;}
