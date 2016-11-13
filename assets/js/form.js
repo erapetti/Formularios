@@ -71,47 +71,57 @@ function formInit() {
 }; // formInit
 
 function openDialog(title,text){
-  $('#dialog-message').html(text);
-  $('#dialog-message').prop('title', title);
-  $(function() {
-    $('#dialog-message').dialog({
-      modal: true,
-      buttons: {
-              Cerrar: function() {
-                      $(this).dialog("close");
-                      window.location.assign('');
-              },
-      },
-      close: function() {
-      }
-    });
-  });
+  $('#dialog-message .modal-title').html(title);
+  $('#dialog-message .modal-body').html(text);
+  $('#dialog-message').modal();
 };
+$('#dialog-message').on('hidden.bs.modal', function() {
+  window.location.assign('');
+});
+
 function adminInit() {
+  // acciones genéricas del formulario:
   $('#admin a[data]').click(function(event){
     event.preventDefault();
     var url = $(this).attr('dest')+'?id='+$(this).attr('data');
-    $.getJSON(url, function(resp){
-      openDialog(resp.code==200 ? "Acción realizada" : "ERROR", resp.message);
-    });
+    $.getJSON(url)
+      .done(function(data){
+        openDialog("Acción realizada", typeof data.message !== "undefined" ? data.message : "ERROR");
+      })
+      .fail(function(rawdata){
+        var data;
+        try {
+          data = JSON.parse(data.responseText);
+        } catch(e) {
+        }
+        openDialog("ERROR", typeof data.message !== "undefined" ? data.message : "ERROR");
+      });
   });
+  // accion preview va separada porque abre un popup
+  $('#admin a[preview]').click(function(event){
+    event.preventDefault();
+    var formid = $(this).attr('preview');
+    $('#admin #preview iframe').attr('src', $(this).attr('dest')+'&id='+formid);
+  });
+  // accion edit va separada porque abre un popup
   $('#admin a[edit]').click(function(event){
     event.preventDefault();
     var formid = $(this).attr('edit');
     var titulo = $('#admin tr[formid='+formid+'] td:nth-child(2)').html().trim();
-    var desde = $('#admin tr[formid='+formid+'] td:nth-child(3)').html().trim();
-    var hasta = $('#admin tr[formid='+formid+'] td:nth-child(4)').html().trim();
+    var desde = $('#admin tr[formid='+formid+'] td:nth-child(3)').attr('date').trim();
+    var hasta = $('#admin tr[formid='+formid+'] td:nth-child(4)').attr('date').trim();
     $('#myModal .modal-body input[name=id]').val(formid);
     $('#myModal .modal-body input[name=titulo]').val(titulo);
     $('#myModal .modal-body input[name=desde]').val(desde);
     $('#myModal .modal-body input[name=hasta]').val(hasta);
   });
+  // submit del popup de edit
   $('#myModal #modalSubmit').click(function(event){
     var formid = $('#myModal .modal-body input[name=id]').val();
     var titulo = $('#myModal .modal-body input[name=titulo]').val();
     var desde = $('#myModal .modal-body input[name=desde]').val();
     var hasta = $('#myModal .modal-body input[name=hasta]').val();
-    $.post("admin/edit", {id:formid,titulo:titulo,desde:desde,hasta:hasta})
+    $.post("edit", {id:formid,titulo:titulo,desde:desde,hasta:hasta})
       .done(function() {
         window.location.assign('');
       })
@@ -124,10 +134,12 @@ function adminInit() {
         $('#myModal #message').html(mensaje).show();
       });
   });
+  // oculto el div con el mensaje de error al abrir el popup
   $('#myModal').on('show.bs.modal', function() {
     $('#myModal #message').hide();
   });
-};
+
+}; // adminInit
 
 function mensaje(texto,color) {
         $('#status').html(texto);

@@ -39,7 +39,9 @@ module.exports = {
 				return res.serverError(new Error("Parámetros incorrectos"));
 			}
 
-			Config.findOne({formid:formid,activo:true}).populate('modulos',{sort:'orden'}).exec(function(err,config){
+			var preview = req.param('preview');
+
+			Config.findOne({formid:formid}).populate('modulos',{sort:'orden'}).exec(function(err,config){
 				if (err) {
 					return res.serverError(err);
 				}
@@ -52,9 +54,15 @@ module.exports = {
 				config.Dependid = session.Dependid;
 				config.Lugarid = session.Lugarid;
 				config.ci = session.Userid.substr(1);
+				config.preview = preview;
+				if (config.hasta) {
+					config.hasta.setHours(23);
+					config.hasta.setMinutes(59);
+					config.hasta.setSeconds(59);
+				}
 
 				var ahora = new Date();
-				if (!(config.desde <= ahora && config.hasta >= ahora)) {
+				if (!(config.desde <= ahora && ahora <= config.hasta) && !preview) {
 					return res.view("error.ejs", {title:config.titulo, mensaje:"Formulario deshabilitado porque estamos fuera del período de validez"});
 				}
 
@@ -78,7 +86,7 @@ module.exports = {
 							return res.serverError(err);
 						}
 
-						if (recibido) {
+						if (recibido && !preview) {
 							// ya está registrado el usuario para este formulario
 
 							// recorro el json guardado en la base y voy cargando los valores

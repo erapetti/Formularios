@@ -37,5 +37,10 @@ div.content { margin:2em }
 #admin table.formularios span.badge {font-size:100%;}
 #admin table.formularios:first-child > tbody > tr:first-child > th {border-top: none;}
 #admin a.disabled span {color:#888;}
+#admin .acciones {white-space:nowrap;}
+#admin .acciones a {margin-left:0.8em;opacity:0.5;}
+#admin table.formularios tr:hover a {opacity:1;}
 #admin #myModal div.modal-body th {padding:0 0.5em 1em 0.5em;}
 #admin #myModal div.modal-body td {padding:0 0.5em 1em 0.5em;width:100%;}
+#admin #preview .modal-dialog {width:75vw;}
+#admin #preview iframe {width:100%;height:70vh;}

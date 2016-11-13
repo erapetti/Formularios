@@ -2,11 +2,13 @@
     </div>
   </div>
 
+<% if (!config.preview) { %>
   <div class="content">
     <button type="reset" id="cancelar" class="btn btn-primary" onClick="location.reload()">Cancelar</button>
     <button type="submit" class="btn btn-primary" name="submit" value="enviar">Enviar</button>
     <div id="status"></div>
   </div>
+<% } %>
 
   <% if (typeof(mensaje) !== 'undefined') { -%>
     <div class="alert alert-danger">

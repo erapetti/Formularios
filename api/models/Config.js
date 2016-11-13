@@ -16,14 +16,13 @@ module.exports = {
       primaryKey: true,
       autoIncrement: true,
     },
-    desde: 'datetime',
-    hasta: 'datetime',
+    desde: 'date',
+    hasta: 'date',
     titulo: 'string',
     modulos: {
       collection: 'modulos',
       via: 'formid'
     },
-    activo: 'boolean',
   },
 
   recibidos: function(callback) {
