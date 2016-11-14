@@ -37,23 +37,23 @@ module.exports.routes = {
     action: 'index'
   },
   '/admin': {
-    controller: 'form',
+    controller: 'admin',
     action: 'index'
   },
   '/admin/download': {
-    controller: 'form',
+    controller: 'admin',
     action: 'download'
   },
   '/admin/clonar': {
-    controller: 'form',
+    controller: 'admin',
     action: 'clonar'
   },
   '/admin/borrar': {
-    controller: 'form',
+    controller: 'admin',
     action: 'borrar'
   },
   '/admin/edit': {
-    controller: 'form',
+    controller: 'admin',
     action: 'edit'
   },
 
