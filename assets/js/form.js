@@ -95,7 +95,7 @@ function adminInit() {
   // acciones genéricas del formulario:
   $('#admin a[data]').click(function(event){
     event.preventDefault();
-    var url = $(this).attr('dest')+'?id='+$(this).attr('data');
+    var url = $(this).attr('dest')+'?formId='+$(this).attr('data');
     $.getJSON(url)
       .done(function(data){
         openDialog("Acción realizada", typeof data.message !== "undefined" ? data.message : "ERROR");
@@ -103,7 +103,7 @@ function adminInit() {
       .fail(function(rawdata){
         var data;
         try {
-          data = JSON.parse(data.responseText);
+          data = JSON.parse(rawdata.responseText);
         } catch(e) {
         }
         openDialog("ERROR", typeof data.message !== "undefined" ? data.message : "ERROR");
@@ -113,7 +113,7 @@ function adminInit() {
   $('#admin a[preview]').click(function(event){
     event.preventDefault();
     var formid = $(this).attr('preview');
-    $('#admin #preview iframe').attr('src', $(this).attr('dest')+'&id='+formid);
+    $('#admin #preview iframe').attr('src', $(this).attr('dest')+'?formId='+formid);
   });
   // accion edit va separada porque abre un popup
   $('#admin a[edit]').click(function(event){
@@ -122,18 +122,18 @@ function adminInit() {
     var titulo = $('#admin tr[formid='+formid+'] td:nth-child(2)').html().trim();
     var desde = $('#admin tr[formid='+formid+'] td:nth-child(3)').attr('date').trim();
     var hasta = $('#admin tr[formid='+formid+'] td:nth-child(4)').attr('date').trim();
-    $('#myModal .modal-body input[name=id]').val(formid);
+    $('#myModal .modal-body input[name=formId]').val(formid);
     $('#myModal .modal-body input[name=titulo]').val(titulo);
     $('#myModal .modal-body input[name=desde]').val(desde);
     $('#myModal .modal-body input[name=hasta]').val(hasta);
   });
   // submit del popup de edit
   $('#myModal #modalSubmit').click(function(event){
-    var formid = $('#myModal .modal-body input[name=id]').val();
+    var formid = $('#myModal .modal-body input[name=formId]').val();
     var titulo = $('#myModal .modal-body input[name=titulo]').val();
     var desde = $('#myModal .modal-body input[name=desde]').val();
     var hasta = $('#myModal .modal-body input[name=hasta]').val();
-    $.post("edit", {id:formid,titulo:titulo,desde:desde,hasta:hasta})
+    $.post("edit", {formId:formid,titulo:titulo,desde:desde,hasta:hasta})
       .done(function() {
         window.location.assign('');
       })

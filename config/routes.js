@@ -32,31 +32,6 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    controller: 'form',
-    action: 'index'
-  },
-  '/admin': {
-    controller: 'admin',
-    action: 'index'
-  },
-  '/admin/download': {
-    controller: 'admin',
-    action: 'download'
-  },
-  '/admin/clonar': {
-    controller: 'admin',
-    action: 'clonar'
-  },
-  '/admin/borrar': {
-    controller: 'admin',
-    action: 'borrar'
-  },
-  '/admin/edit': {
-    controller: 'admin',
-    action: 'edit'
-  },
-
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
