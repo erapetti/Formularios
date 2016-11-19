@@ -17,7 +17,7 @@ function formInit() {
     var campo = $(this).attr('dd');
     var val = $('#dd-'+campo).val();
     if (typeof val !== 'undefined' && val!=="") {
-      var texto = $("ul.dropdown-menu[dd="+campo+"] li a[data="+val+"]").text();
+      var texto = $("ul.dropdown-menu[dd="+campo+"] li a[data='"+val+"']").text();
       // actualizo etiqueta del botón
       $('#btn-dd-'+campo).html( texto + ' <span class="caret"></span>');
     }
