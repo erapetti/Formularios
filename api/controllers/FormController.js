@@ -29,10 +29,12 @@ module.exports = {
 			if (sails.config.environment === "development") {
 				err = undefined;
 				//session = {Sesionesid:1,Userid:'u10121248',Dependid:1023,Lugarid:1023};
-				//session = {Sesionesid:1,Userid:'u19724241',Dependid:1023,Lugarid:1023};
+				session = {Sesionesid:1,Userid:'u19724241',Dependid:1023,Lugarid:1023};
 				//session = {Sesionesid:1,Userid:'u13683344',Dependid:1023,Lugarid:1023};
 				//session = {Sesionesid:1,Userid:'u17488617',Dependid:1023,Lugarid:1023};
-				session = {Sesionesid:1,Userid:'u18753938',Dependid:5830,Lugarid:5830};
+				//session = {Sesionesid:1,Userid:'u18753938',Dependid:5830,Lugarid:5830};
+				//session = {Sesionesid:1,Userid:'u33784415',Dependid:5830,Lugarid:5830};
+				//session = {Sesionesid:1,Userid:'u26827767',Dependid:5830,Lugarid:5830};
 			}
 			if (err) {
 				sails.log("forbidden", req.url, err);
@@ -85,8 +87,8 @@ module.exports = {
 
 				// espero a que termine la carga...
 				Promise.all(requests).then(function(){
-					// todas las propises terminaron resolved (i.e. con éxito)
-					Recibidos.findOne({formid:formid,cedula:config.ci}).exec(function(err,recibido) {
+					// todas las promises terminaron resolved (i.e. con éxito)
+					Recibidos.findOne({formid:formid,cedula:config.ci,borrado:false}).exec(function(err,recibido) {
 						if (err) {
 							return res.serverError(err);
 						}
@@ -126,6 +128,7 @@ module.exports = {
 							recibido.telefono = values.telefono;
 							delete values.telefono;
 							recibido.json = values;
+							recibido.borrado = false;
 							Recibidos.create(recibido).exec(function(err,record){
 								if (err) {
 									return res.json(500,{message:err.message});
@@ -147,6 +150,11 @@ module.exports = {
 Date.prototype.fecha_toString = function() {
 	var sprintf = require("sprintf");
 	return sprintf("%02d/%02d/%04d", this.getDate(),this.getMonth()+1,this.getFullYear());
+};
+
+Date.prototype.fecha_ymd_toString = function() {
+	var sprintf = require("sprintf");
+	return sprintf("%04d-%02d-%02d", this.getFullYear(),this.getMonth()+1,this.getDate());
 };
 
 String.prototype.capitalizeFirstLetter = function() {

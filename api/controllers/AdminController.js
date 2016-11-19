@@ -85,7 +85,7 @@ module.exports = {
 					return res.serverError(new Error("No existe el formulario solicitado"));
 				}
 
-				Recibidos.find({formid:formid}).exec(function(err,recibido) {
+				Recibidos.find({formid:formid,borrado:false}).exec(function(err,recibido) {
 					if (err) {
 						return res.serverError(err);
 					}

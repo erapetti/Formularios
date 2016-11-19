@@ -20,5 +20,9 @@ module.exports = {
     correo: 'string',
     telefono: 'string',
     json: 'json',
+    borrado: {
+      type: 'boolean',
+      defaultsTo: false,
+    },
   },
 };
