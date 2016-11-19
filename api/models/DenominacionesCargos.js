@@ -22,7 +22,7 @@ module.exports = {
           DenomCargoActivo: 'integer',
   },
 
-  misCargos: function(perci,callback) {
+  misCargos: function(perci,desde,hasta,callback) {
     return this.query(`
       select DenomCargoId,DenomCargoDesc,DenomCargoActivo
       from RELACIONES_LABORALES
@@ -33,13 +33,13 @@ module.exports = {
       join DENOMINACIONES_CARGOS
         using (DenomCargoId)
       where perdocid=?
-        AND (RelLabCeseFchReal is null OR RelLabCeseFchReal='1000-01-01' OR RelLabCeseFchReal>now())
-        AND (RelLabFchIniActividades is null OR RelLabFchIniActividades='1000-01-01' OR RelLabFchIniActividades<now())
-        AND (PuestoFchDesdeVigencia is null OR PuestoFchDesdeVigencia='1000-01-01' OR PuestoFchDesdeVigencia<now())
-        AND (PuestoFchHastaVigencia is null OR PuestoFchHastaVigencia='1000-01-01' OR PuestoFchHastaVigencia>now())
+        AND (RelLabFchIniActividades is null OR RelLabFchIniActividades='1000-01-01' OR RelLabFchIniActividades<?)
+        AND (PuestoFchDesdeVigencia is null OR PuestoFchDesdeVigencia='1000-01-01' OR PuestoFchDesdeVigencia<?)
+        AND (PuestoFchHastaVigencia is null OR PuestoFchHastaVigencia='1000-01-01' OR PuestoFchHastaVigencia>?)
+        AND (RelLabCeseFchReal is null OR RelLabCeseFchReal='1000-01-01' OR RelLabCeseFchReal>?)
       group by DenomCargoId
     `,
-    [perci],
+    [perci,desde,desde,hasta,hasta],
     function(err,result){
       if (err) {
         return callback(err, undefined);
