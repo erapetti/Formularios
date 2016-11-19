@@ -7,7 +7,8 @@
 
  module.exports = {
  	load: function(param,resolve,reject) {
- 		DenominacionesCargos.misCargos(param.config.ci, function(err,cargos) {
+    var ahora = new Date();
+ 		DenominacionesCargos.misCargos(param.config.ci,ahora.fecha_ymd_toString(),'2099-01-01',function(err,cargos) {
  			if (err) {
  				return reject(err);
  			} else {
