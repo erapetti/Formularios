@@ -14,13 +14,13 @@ module.exports = {
 				return res.serverError(err);
 			}
 
-			Config.recibidos(function(err, cantidad){
+			Config.recibidos(function(err, data){
 				if (err) {
 					return res.serverError(err);
 				}
 
 				config.titulo="Administración de formularios";
-				return res.view({title:config.titulo,config:config,cantidad:cantidad});
+				return res.view({title:config.titulo,config:config,cantidad:data.cantidad,borrados:data.borrados});
 			});
 		});
 	},
@@ -117,7 +117,7 @@ module.exports = {
 				}
 
 				if (recibido && recibido.length>0) {
-					return res.json(500,{message:"No se puede borrar un formulario que tiene envíos recibidos"});
+					return res.json(500,{message:"No se puede borrar un formulario que tiene envíos recibidos aunque estén borrados"});
 				}
 
 				// borro los módulos

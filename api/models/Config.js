@@ -27,7 +27,7 @@ module.exports = {
 
   recibidos: function(callback) {
     return this.query(`
-      SELECT formid,count(*) cant
+      SELECT formid,sum(borrado<>1) cant,sum(borrado=1) borrados
       FROM recibidos
       GROUP BY formid
     `,
@@ -40,10 +40,12 @@ module.exports = {
         return new Error("No se pueden obtener los formularios recibidos",undefined);
       }
       var cantidad = [];
+      var borrados = [];
       result.forEach(function(item){
         cantidad[item.formid] = item.cant;
-      })
-      return callback(undefined, cantidad);
+        borrados[item.formid] = item.borrados;
+      });
+      return callback(undefined, {cantidad:cantidad,borrados:borrados});
     });
   },
 };
