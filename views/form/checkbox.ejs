@@ -7,3 +7,8 @@
     <% if (m.ayuda !== null) { %><%= m.ayuda %><% } %>
   </td>
 </tr>
+<% if (m.texto1) { %>
+  <tr>
+    <td colspan="3" style="border-top:none"><%- m.texto1 %></td>
+  </tr>
+<% } %>
