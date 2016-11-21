@@ -162,19 +162,21 @@ function adminInit() {
   // acciones genéricas del formulario:
   $('#admin a[data]').click(function(event){
     event.preventDefault();
-    var url = $(this).attr('dest')+'?formId='+$(this).attr('data');
-    $.getJSON(url)
-      .done(function(data){
-        openDialog("Acción realizada", typeof data.message !== "undefined" ? data.message : "ERROR");
-      })
-      .fail(function(rawdata){
-        var data;
-        try {
-          data = JSON.parse(rawdata.responseText);
-        } catch(e) {
-        }
-        openDialog("ERROR", typeof data !== "undefined" && typeof data.message !== "undefined" ? data.message : rawdata.statusText);
-      });
+    if (! $(this).hasClass('disabled')) {
+      var url = $(this).attr('dest')+'?formId='+$(this).attr('data');
+      $.getJSON(url)
+        .done(function(data){
+          openDialog("Acción realizada", typeof data.message !== "undefined" ? data.message : "ERROR");
+        })
+        .fail(function(rawdata){
+          var data;
+          try {
+            data = JSON.parse(rawdata.responseText);
+          } catch(e) {
+          }
+          openDialog("ERROR", typeof data !== "undefined" && typeof data.message !== "undefined" ? data.message : rawdata.statusText);
+        });
+    }
   });
   // accion preview va separada porque abre un popup
   $('#admin a[preview]').click(function(event){

@@ -60,7 +60,7 @@ module.exports = {
 	// alias de index para usarlo en la validación de permisos
 	preview: function (req, res) {
 
-		req.session.preview = 1;
+		req.config.preview = 1;
 		sails.controllers.form.index(req, res);
 	},
 

@@ -28,7 +28,6 @@ module.exports = function(req, res, next) {
     req.config.Dependid = req.session.Dependid;
     req.config.Lugarid = req.session.Lugarid;
     req.config.ci = req.session.Userid.substr(1);
-    req.config.preview = req.session.preview;
 
     return next();
   });

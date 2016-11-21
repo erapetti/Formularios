@@ -52,6 +52,7 @@ module.exports.policies = {
     '*': ['sessionAuth','findForm','formEnabled'],
   },
   AdminController: {
-    '*': ['sessionAuth'],
+    '*': ['sessionAuth','findForm'],
+    'index': ['sessionAuth'],
   },
 };
