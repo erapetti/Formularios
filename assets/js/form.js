@@ -85,7 +85,7 @@ function formInit() {
      if (confirm("¿Desea anular su formulario?")) {
        var formId = location.search.substr(1).match(/id=(\d+)/)[1];
        var recordId = $('#myForm input[aria-describedby="registro-0"]').val();
-       $.post("borrar",{formId:formId,recordId:recordId})
+       $.post("borrar?id="+formId,{recordId:recordId})
        .done(function(data){
          openDialog("Acción realizada", typeof data.message !== "undefined" ? data.message : "ERROR");
        })
