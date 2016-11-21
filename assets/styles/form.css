@@ -15,6 +15,7 @@ div.content { margin:2em }
 #myForm {padding:1em;}
 #myForm .table:first-child > tbody > tr:first-child > td {border-top: none;}
 #myForm .red {border-color:red;}
+#form button#borrar {display:block;margin-top:1em;}
 #status {margin-bottom:2em;margin-top:1em;display:inline;}
 
 

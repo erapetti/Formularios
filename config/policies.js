@@ -49,7 +49,7 @@ module.exports.policies = {
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
   FormController: {
-    '*': ['sessionAuth'],
+    '*': ['sessionAuth','findForm','formEnabled'],
   },
   AdminController: {
     '*': ['sessionAuth'],

@@ -6,6 +6,9 @@ $(document).ready(function() {
   }
 });
 
+/***********************************
+ * form
+ */
 function formInit() {
 
   var bar = $('#bar');
@@ -36,6 +39,7 @@ function formInit() {
   } else {
     $('#myForm input').prop('disabled',false);
     $('#myForm .dropdown button').prop('disabled',false);
+    $('#form button#borrar').hide();
   }
 
   $('#myForm').ajaxForm({
@@ -76,21 +80,84 @@ function formInit() {
    $('#myForm textarea').each(function() {
      autogrow($(this));
    });
+
+   $('#borrar').click(function() {
+     if (confirm("¿Desea anular su formulario?")) {
+       var formId = location.search.substr(1).match(/id=(\d+)/)[1];
+       var recordId = $('#myForm input[aria-describedby="registro-0"]').val();
+       $.post("borrar",{formId:formId,recordId:recordId})
+       .done(function(data){
+         openDialog("Acción realizada", typeof data.message !== "undefined" ? data.message : "ERROR");
+       })
+       .fail(function(rawdata){
+         var data;
+         try {
+           data = JSON.parse(rawdata.responseText);
+         } catch(e) {
+         }
+         openDialog("ERROR", typeof data !== "undefined" && typeof data.message !== "undefined" ? data.message : rawdata.statusText);
+       });
+     }
+   });
 }; // formInit
+
 function autogrow(obj) {
   var matches = obj.val().match(/\n/g);
   var breaks = matches ? matches.length : 2;
   obj.attr('rows',breaks + 1);
 };
-function openDialog(title,text){
-  $('#dialog-message .modal-title').html(title);
-  $('#dialog-message .modal-body').html(text);
-  $('#dialog-message').modal();
+function mensaje(texto,color) {
+        $('#status').html(texto);
+        $('#status').css('color',color);
 };
-$('#dialog-message').on('hidden.bs.modal', function() {
-  window.location.assign('');
-});
+function bloquear() {
+  $('#cancelar').hide();
+  $('#borrar').show();
+  $('#myForm [type=submit]').hide();
+  $('#myForm').prop('disabled',true);
+  $('#myForm input').prop('disabled',true);
+  $('#myForm .dropdown button').prop('disabled',true);
+  $('#myForm *').css('background-color','#f2f2f2');
+  $("#myForm a").css('display','none');
+  $("body").css("cursor", "default");
+};
+function validate_novacio(item) {
+  return (item.value && item.value!=="");
+};
+function validate_numero(item) {
+  var re = /^[0-9]+$/;
+  return (re.test(item.value));
+};
+function validate() {
+        mensaje('','black');
+        var errores=0;
+        $('#myForm *').filter(':input').each(function(index,item) {
+          if (item.getAttribute("validate") && (item.getAttribute("optional")!=='true' || item.value && item.value!=="")) {
+            // llamo a la función de validación
+            if (!window["validate_"+item.getAttribute("validate")](item)) {
+              errores+=1;
+              $("#btn-"+$(item).attr("id")).addClass("red");
+              $(item).addClass("red");
+            } else {
+              $("#btn-"+$(item).attr("id")).removeClass("red");
+              $(item).removeClass("red");
+            }
+          }
+        });
+        if (errores>1) {
+          mensaje("Debe corregir los "+errores+" errores indicados con color rojo en el formulario","red");
+          return false;
+        } else if (errores==1) {
+          mensaje("Debe corregir el error indicado con color rojo en el formulario","red");
+          return false;
+        }
+        mensaje("Espere mientras se ingresa la solicitud....",'');
+        return true;
+};
 
+/***********************************
+ * admin
+ */
 function adminInit() {
   // acciones genéricas del formulario:
   $('#admin a[data]').click(function(event){
@@ -106,7 +173,7 @@ function adminInit() {
           data = JSON.parse(rawdata.responseText);
         } catch(e) {
         }
-        openDialog("ERROR", typeof data.message !== "undefined" ? data.message : "ERROR");
+        openDialog("ERROR", typeof data !== "undefined" && typeof data.message !== "undefined" ? data.message : rawdata.statusText);
       });
   });
   // accion preview va separada porque abre un popup
@@ -153,53 +220,14 @@ function adminInit() {
 
 }; // adminInit
 
-function mensaje(texto,color) {
-        $('#status').html(texto);
-        $('#status').css('color',color);
+/***********************************
+ * layout
+ */
+function openDialog(title,text){
+  $('#dialog-message .modal-title').html(title);
+  $('#dialog-message .modal-body').html(text);
+  $('#dialog-message').modal();
 };
-function show(que) {
-        que.fadeIn('slow');
-};
-function bloquear() {
-  $("#cancelar").hide();
-  $('#myForm [type=submit]').hide();
-  $('#myForm').prop('disabled',true);
-  $('#myForm input').prop('disabled',true);
-  $('#myForm .dropdown button').prop('disabled',true);
-  $('#myForm *').css('background-color','#f2f2f2');
-  $("#myForm a").css('display','none');
-  $("body").css("cursor", "default");
-};
-function validate_novacio(item) {
-  return (item.value && item.value!=="");
-};
-function validate_numero(item) {
-  var re = /^[0-9]+$/;
-  return (re.test(item.value));
-};
-function validate() {
-        mensaje('','black');
-        var errores=0;
-        $('#myForm *').filter(':input').each(function(index,item) {
-          if (item.getAttribute("validate") && (item.getAttribute("optional")!=='true' || item.value && item.value!=="")) {
-            // llamo a la función de validación
-            if (!window["validate_"+item.getAttribute("validate")](item)) {
-              errores+=1;
-              $("#btn-"+$(item).attr("id")).addClass("red");
-              $(item).addClass("red");
-            } else {
-              $("#btn-"+$(item).attr("id")).removeClass("red");
-              $(item).removeClass("red");
-            }
-          }
-        });
-        if (errores>1) {
-          mensaje("Debe corregir los "+errores+" errores indicados con color rojo en el formulario","red");
-          return false;
-        } else if (errores==1) {
-          mensaje("Debe corregir el error indicado con color rojo en el formulario","red");
-          return false;
-        }
-        mensaje("Espere mientras se ingresa la solicitud....",'');
-        return true;
-};
+$('#dialog-message').on('hidden.bs.modal', function() {
+  window.location.assign('');
+});

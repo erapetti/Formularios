@@ -30,15 +30,11 @@ module.exports = function(req, res, next) {
   }
 
   var sessionid = req.cookies.SESION.replace(/[+ ]/g,'');
-console.log(url);
   var url = req.url.substr(1); // saco la / inicial
-console.log(url);
   url = url.replace(/\?.*/, '');
-console.log(url);
   if (req.param('id')) {
     url = url + "?id=" + req.param('id');
   }
-console.log(url);
 
   wsPortal.getSession(sessionid, url, function(err,session) {
     if (err) {
