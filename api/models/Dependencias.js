@@ -28,13 +28,33 @@ module.exports = {
     return this.query(`
       SELECT DependId,d.DependDesc,d.DependNom,d.StatusId
       FROM DEPENDENCIAS d
-      JOIN Personal.as400
+      JOIN (
+
+        SELECT DependId
+        FROM Personal.as400
+        WHERE cedula=?
+        GROUP BY DependId
+
+        UNION
+
+        SELECT DependId
+        FROM Personal.RELACIONES_LABORALES
+        JOIN Personas.PERSONASDOCUMENTOS
+          ON perid=personalperid and paiscod='UY' and doccod='CI'
+        JOIN Personal.PUESTOS
+          USING (puestoid)
+        WHERE perdocid=?
+          AND (PuestoFchHastaVigencia is null OR PuestoFchHastaVigencia='1000-01-01' OR PuestoFchHastaVigencia>now())
+          AND (RelLabCeseFchReal is null OR RelLabCeseFchReal='1000-01-01' OR RelLabCeseFchReal>now())
+        GROUP BY DependId
+
+      ) TMP
+
       USING (DependId)
       WHERE StatusId=1
-        AND cedula=?
       GROUP BY DependId;
     `,
-    [perci],
+    [perci,perci],
     function(err,result){
       if (err) {
         return callback(err, undefined);

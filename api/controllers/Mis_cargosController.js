@@ -12,7 +12,12 @@
  			if (err) {
  				return reject(err);
  			} else {
-				param.m.options = cargos;
+				param.m.options = Array();
+        cargos.forEach(function(cargo){
+          if (cargo.TipoCargoId > 1) {
+            param.m.options.push(cargo);
+          }
+        });
         return resolve(undefined);
  			}
  		});

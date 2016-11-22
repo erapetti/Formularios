@@ -19,12 +19,13 @@ module.exports = {
                   primaryKey: true
           },
           DenomCargoDesc: 'string',
+          TipoCargoId: 'integer',
           DenomCargoActivo: 'integer',
   },
 
   misCargos: function(perci,desde,hasta,callback) {
     return this.query(`
-      select DenomCargoId,DenomCargoDesc,DenomCargoActivo
+      select DenomCargoId,DenomCargoDesc,TipoCargoId,DenomCargoActivo
       from RELACIONES_LABORALES
       join Personas.PERSONASDOCUMENTOS
         on perid=personalperid and paiscod='UY' and doccod='CI'
@@ -33,8 +34,6 @@ module.exports = {
       join DENOMINACIONES_CARGOS
         using (DenomCargoId)
       where perdocid=?
-        AND (RelLabFchIniActividades is null OR RelLabFchIniActividades='1000-01-01' OR RelLabFchIniActividades<?)
-        AND (PuestoFchDesdeVigencia is null OR PuestoFchDesdeVigencia='1000-01-01' OR PuestoFchDesdeVigencia<?)
         AND (PuestoFchHastaVigencia is null OR PuestoFchHastaVigencia='1000-01-01' OR PuestoFchHastaVigencia>?)
         AND (RelLabCeseFchReal is null OR RelLabCeseFchReal='1000-01-01' OR RelLabCeseFchReal>?)
       group by DenomCargoId
