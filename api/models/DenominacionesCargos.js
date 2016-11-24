@@ -34,8 +34,6 @@ module.exports = {
       join DENOMINACIONES_CARGOS
         using (DenomCargoId)
       where perdocid=?
-        AND (PuestoFchHastaVigencia is null OR PuestoFchHastaVigencia='1000-01-01' OR PuestoFchHastaVigencia>?)
-        AND (RelLabCeseFchReal is null OR RelLabCeseFchReal='1000-01-01' OR RelLabCeseFchReal>?)
       group by DenomCargoId
     `,
     [perci,desde,desde,hasta,hasta],
