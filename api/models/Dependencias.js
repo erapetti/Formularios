@@ -44,8 +44,6 @@ module.exports = {
         JOIN Personal.PUESTOS
           USING (puestoid)
         WHERE perdocid=?
-          AND (PuestoFchHastaVigencia is null OR PuestoFchHastaVigencia='1000-01-01' OR PuestoFchHastaVigencia>now())
-          AND (RelLabCeseFchReal is null OR RelLabCeseFchReal='1000-01-01' OR RelLabCeseFchReal>now())
         GROUP BY DependId
 
       ) TMP
