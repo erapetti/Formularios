@@ -1,6 +1,6 @@
 <tr>
   <td class="col-sm-3">
-    <span class="input-group-addon" id="campo-<%= m.id%>"><%= m.etiqueta %>:</span>
+    <span class="input-group-addon" id="campo-<%= m.id%>"><%- m.etiqueta %>:</span>
   </td><td class="col-sm-6">
     <input type="hidden" class="<%= m.modid %>" id="dd-<%= m.id%>" name="<%= m.nombre %>" value="<% if (m.value) {%><%= m.value %><% } %>"<% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
     <div class="dropdown">

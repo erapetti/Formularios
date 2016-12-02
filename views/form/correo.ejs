@@ -1,6 +1,6 @@
 <tr>
   <td class="col-sm-3">
-    <span class="input-group-addon" id="correo-<%= m.id%>"><%= m.etiqueta %>:</span>
+    <span class="input-group-addon" id="correo-<%= m.id%>"><%- m.etiqueta %>:</span>
   </td><td class="col-sm-6">
     <input type="text" class="form-control"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="correo-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
   </td><td class="col-sm-3">

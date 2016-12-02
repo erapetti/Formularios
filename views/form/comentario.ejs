@@ -1,6 +1,6 @@
 <tr>
   <td class="col-sm-3">
-    <span class="input-group-addon" id="cedula-<%= m.id%>"><%= m.etiqueta %>:</span>
+    <span class="input-group-addon" id="cedula-<%= m.id%>"><%- m.etiqueta %>:</span>
   </td><td class="col-sm-6">
     <textarea class="form-control"<% if (m.ayuda) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="cedula-<%= m.id%>" name="<%= m.nombre %>">
 <% if (m.value) { %><%= m.value %><% } %></textarea>
