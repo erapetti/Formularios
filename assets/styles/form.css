@@ -21,7 +21,7 @@ div0.content { margin:2em }
 
 @media print {
   body {font-size:8pt;}
-  button.btn[type=submit],button.btn[type=reset],button#print, button#borrar {display:none;}
+  button.btn[type=submit],button.btn[type=reset],button#print, button#borrar {display:none !important;}
   #myForm .table > tbody > tr > td:nth-child(3) {display:none;}
   #myForm .form-control[readonly] {background-color:transparent;color:black;}
   #myForm a {display:none;}
