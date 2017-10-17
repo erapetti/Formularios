@@ -19,7 +19,7 @@ module.exports = {
 			primaryKey: true
 		},
 		AsignDesc: 'string',
+		TipoEscalafon: 'string',
 	}
 
 };
-
