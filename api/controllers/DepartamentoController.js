@@ -7,7 +7,7 @@
 
  module.exports = {
  	load: function(param,resolve,reject) {
- 		Departamentos.find().sort("DeptoNombre").exec(function(err,departamentos) {
+ 		Departamentos.find({DeptoId:{'<':20}}).sort("DeptoNombre").exec(function(err,departamentos) {
  			if (err) {
  				return reject(err);
  			} else {
