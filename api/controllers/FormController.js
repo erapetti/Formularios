@@ -64,6 +64,14 @@ module.exports = {
 		sails.controllers.form.index(req, res);
 	},
 
+	// alias de index para usarlo en la validación de permisos
+	modedit: function (req, res) {
+
+		req.config.preview = 1;
+		req.config.modedit = 1;
+		sails.controllers.form.index(req, res);
+	},
+
 	// ajax para borrar un formulario recibido
 	borrar: function (req, res) {
 

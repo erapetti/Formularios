@@ -16,4 +16,7 @@
  			}
  		});
  	},
+  modedit: function() {
+    return {nombre:"dependencia", etiqueta:"Dependencia", texto1:undefined, texto2:undefined, ayuda:"Texto que se muestra a la derecha", validador:"novacio", opcional:"on"};
+  },
  };

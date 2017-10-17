@@ -18,4 +18,7 @@
       return reject(new Error(err));
     };
  	},
+  modedit: function() {
+    return {nombre:"menu", etiqueta:"Menú de opciones", texto1:"Array de opciones entre comillas dobles", texto2:undefined, ayuda:"Texto que se muestra a la derecha", validador:"novacio", opcional:"on"};
+  },
  };

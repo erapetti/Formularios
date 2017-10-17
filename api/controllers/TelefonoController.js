@@ -16,4 +16,7 @@
  			}
  		});
  	},
+  modedit: function() {
+    return {nombre:"telefono", etiqueta:"Teléfono", texto1:undefined, texto2:undefined, ayuda:"Texto en gris dentro del campo", validador:"novacio", opcional:"on"};
+  },
  };

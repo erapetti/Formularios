@@ -24,7 +24,7 @@ module.exports = function(req, res, next) {
     //req.session = {Sesionesid:1,Userid:'u36289258',Dependid:1023,Lugarid:1023};
     //req.session = {Sesionesid:1,Userid:'u14528668',Dependid:1023,Lugarid:1023};
     //req.session = {Sesionesid:1,Userid:'u18252304',Dependid:1023,Lugarid:1023};
-    req.session = {Sesionesid:1,Userid:'u27643485',Dependid:1023,Lugarid:1023};
+    req.session = {Sesionesid:1,Userid:'u19724241',Dependid:1023,Lugarid:1023};
     return next();
   }
 

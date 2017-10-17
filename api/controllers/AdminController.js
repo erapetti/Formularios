@@ -66,7 +66,7 @@ module.exports = {
 
 	borrar: function (req, res) {
 
-		Recibidos.find({formid:req.formId}).exec(function(err,recibido) {
+		Recibidos.findOne({formid:req.formId}).exec(function(err,recibido) {
 			if (err) {
 				return res.json(500,{message:err.message});
 			}
@@ -120,6 +120,88 @@ module.exports = {
 			}
 			return res.json(200,{message:"OK"});
 		});
+	},
+
+
+
+	modedit: function (req, res) {
+
+		var action = req.param("action");
+		var orden = parseInt(req.param("orden"));
+
+		if (action == "subir") {
+			if (orden > 1) {
+				Modulos.subir(req.formId,orden,function(err){
+					if (err) {
+						return res.serverError(err);
+					}
+					return res.redirect('/form/modedit?formId='+req.formId);
+				});
+			} else {
+					return res.serverError(new Error("El componente ya está en el primer lugar"));
+			}
+
+		} else if (action == "bajar") {
+			if (orden < 999) {
+				Modulos.bajar(req.formId,orden,function(err){
+					if (err) {
+						return res.serverError(err);
+					}
+					return res.redirect('/form/modedit?formId='+req.formId);
+				});
+			} else {
+				return res.serverError(new Error("El componente ya está en el último lugar"));
+			}
+
+		} else if (action == "editar") {
+			Modulos.findOne({formid:req.formId,orden:orden}).exec(function(err,m){
+				if (err) {
+						return callback(err);
+				}
+				if (typeof m === 'undefined') {
+					return callback(new Error("No se encuentra el componente #"+orden));
+				}
+				if (typeof sails.controllers[m.modid] === 'undefined' || typeof sails.controllers[m.modid].modedit === 'undefined') {
+					return res.serverError(new Error("Los componentes de tipo "+m.modid+" no pueden ser editados"));
+				}
+				sails.controllers[m.modid].load({config:req.config,m:m},function(){
+					m.config = sails.controllers[m.modid].modedit();
+					return res.view("admin/modedit.ejs",{formId:req.formId,m:m});
+				},function(err){
+					return res.serverError(err);
+				});
+			});
+
+		} else if (action == "borrar") {
+			Modulos.destroy({formid:req.formId,orden:orden}).exec(function(err){
+				if (err) {
+					return res.serverError(err);
+				}
+				return res.redirect('/form/modedit?formId='+req.formId);
+			});
+
+		} else if (action == "crear") {
+			return res.redirect('/form/modedit?formId='+req.formId);
+
+		} else if (action == "guardar") {
+			var nombre=req.param("nombre");
+			var etiqueta=req.param("etiqueta");
+			var texto1=req.param("texto1");
+			var texto2=req.param("texto2");
+			var ayuda=req.param("ayuda");
+			var validador=req.param("validador");
+			var opcional=req.param("opcional") === "on";
+			Modulos.update({formid:req.formId,orden:orden},{nombre:nombre,etiqueta:etiqueta,texto1:texto1,texto2:texto2,ayuda:ayuda,validador:validador,opcional:opcional}).exec(function(err,updated){
+				if (err) {
+					return res.serverError(err);
+				}
+				console.log(updated);
+				return res.redirect('/form/modedit?formId='+req.formId);
+			});
+
+		} else {
+			return res.serverError(new Error("La acción "+action+" no está definida"));
+		}
 	},
 
 };

@@ -18,8 +18,10 @@
 
 </form>
 
-<% if (m.texto1) { %><%- m.texto1 %><% } %>
-<% if (m.texto2) { %><%- m.texto2 %><% } %>
+<div class="modulo" orden="<%= m.orden %>">
+  <% if (m.texto1) { %><%- m.texto1 %><% } %>
+  <% if (m.texto2) { %><%- m.texto2 %><% } %>
+</div>
 
 <% if (!config.preview) { %>
 <button type="button" id="borrar" class="btn btn-primary">Anular formulario</button>

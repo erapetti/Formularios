@@ -1,5 +1,7 @@
-<%if (m.texto1) { %><%- m.texto1 %><% } %>
-<%if (m.texto2) { %><%- m.texto2 %><% } %>
+<div class="modulo" orden="<%= m.orden %>">
+  <%if (m.texto1) { %><%- m.texto1 %><% } %>
+  <%if (m.texto2) { %><%- m.texto2 %><% } %>
+</div>
 
 <% if (typeof recibido !== "undefined") { %>
   <div class="content">
@@ -10,7 +12,7 @@
   </script>
 <% } %>
 
-<form method="post" id="myForm">
+<form method="post" id="myForm" class="myForm">
 
   <div class="panel panel-default content">
     <div class="panel-body">

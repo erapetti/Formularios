@@ -4,17 +4,6 @@ $(document).ready(function() {
   } else if ($("#admin").length) {
     adminInit();
   }
-});
-
-/***********************************
- * form
- */
-function formInit() {
-
-  var bar = $('#bar');
-  var percent = $('#percent');
-  var status = $('#status');
-
   // inicialización de los dropdown-menu
   $("ul.dropdown-menu").each(function(index,obj){
     var campo = $(this).attr('dd');
@@ -33,6 +22,16 @@ function formInit() {
     // actualizo etiqueta del botón
     $('#btn-dd-'+$(this).attr('dd')).html( $(this).text() + ' <span class="caret"></span>');
   });
+});
+
+/***********************************
+ * form
+ */
+function formInit() {
+
+  var bar = $('#bar');
+  var percent = $('#percent');
+  var status = $('#status');
 
   if (typeof bloqueado !== 'undefined') { // se carga en intro.ejs
     bloquear();
@@ -121,12 +120,19 @@ function bloquear() {
   $("#myForm a").css('display','none');
   $("body").css("cursor", "default");
 };
+function validate_nop(item) {
+  return true;
+};
 function validate_novacio(item) {
   return (item.value && item.value!=="");
 };
 function validate_numero(item) {
   var re = /^[0-9]+$/;
-  return (re.test(item.value));
+  return re.test(item.value);
+};
+function validate_correo(item) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(item.value);
 };
 function validate() {
         mensaje('','black');
@@ -233,3 +239,24 @@ function openDialog(title,text){
 $('#dialog-message').on('hidden.bs.modal', function() {
   window.location.assign('');
 });
+
+/***********************************
+ * modedit
+ */
+ $(document).ready(function() {
+   if ($("#float").length) {
+     $('#float').hide();
+     $('.modulo').click(function(){
+       if ($('#float').offset().top == $(this).offset().top) {
+         $('#float').toggle();
+       } else {
+         $('#float').show();
+       }
+       $('#float').offset( {top:$(this).offset().top,left:0} );
+       $('#float').attr('orden', $(this).attr('orden'));
+     });
+     $('#float a').click(function(){
+       window.location.assign("/admin/modedit?formId="+$(this).attr('formId')+"&orden="+$(this).parent().attr('orden')+"&action="+$(this).attr('title'));
+     });
+   }
+ });
