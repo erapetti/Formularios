@@ -7,7 +7,7 @@
 
  module.exports = {
  	load: function(param,resolve,reject) {
- 		Asignaturas.find().sort("AsignDesc").exec(function(err,asignaturas) {
+ 		Asignaturas.find({TipoEscalafon:{'!':null}}).sort("AsignDesc").exec(function(err,asignaturas) {
  			if (err) {
  				return reject(err);
  			} else {
