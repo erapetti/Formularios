@@ -1,0 +1,126 @@
+<div id="admin_modedit">
+  <div id="form">
+
+    <h1>Editar componente</h1>
+
+    <form method="post" id="form_modedit" class="myForm">
+      <input type="hidden" name="formId" value="<%= formId %>">
+      <input type="hidden" name="orden" value="<%= m.orden %>">
+
+      <div class="panel panel-default content">
+        <div class="panel-body">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="col-sm-3">
+                  <span id="modid-1" class="input-group-addon">Módulo:</span>
+                </td><td class="col-sm-6">
+                  <input type="text" class="form-control" aria-describedby="modid-1" name="modid" value="<%= m.modid %>" readonly="readonly">
+                </td><td class="col-sm-3">
+                  Tipo de componente
+                </td>
+              </tr>
+              <% if (m.config.nombre) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span id="nombres-1" class="input-group-addon">Nombre:</span>
+                </td><td class="col-sm-6">
+                  <input type="text" class="form-control" aria-describedby="nombre-1" name="nombre" value="<%= m.nombre %>">
+                </td><td class="col-sm-3">
+                  Nombre del parámetro en el form
+                </td>
+              </tr>
+              <% } if (m.config.etiqueta) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span id="etiqueta-1" class="input-group-addon">Etiqueta:</span>
+                </td><td class="col-sm-6">
+                  <input type="text" class="form-control" aria-describedby="etiqueta-1" name="etiqueta" value="<%= m.etiqueta %>">
+                </td><td class="col-sm-3">
+                  Etiqueta que se muestra en pantalla
+                </td>
+              </tr>
+              <% } if (m.config.texto1) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span id="texto-1" class="input-group-addon">Texto 1:</span>
+                </td><td class="col-sm-6">
+                  <textarea class="form-control" aria-describedby="texto-1" name="texto1"><% if (m.texto1) { %><%= m.texto1 %><% } %></textarea>
+                </td><td class="col-sm-3">
+                  <%= m.config.texto1 %>
+                </td>
+              </tr>
+              <% } if (m.config.texto2) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span id="texto-2" class="input-group-addon">Texto 2:</span>
+                </td><td class="col-sm-6">
+                  <textarea class="form-control" aria-describedby="texto-2" name="texto2"><% if (m.texto2) { %><%= m.texto2 %><% } %></textarea>
+                </td><td class="col-sm-3">
+                  <%= m.config.texto2 %>
+                </td>
+              </tr>
+              <% } if (m.config.ayuda) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span id="ayuda-1" class="input-group-addon">Ayuda:</span>
+                </td><td class="col-sm-6">
+                  <input type="text" class="form-control" aria-describedby="ayuda-1" name="ayuda" value="<%= m.ayuda %>">
+                </td><td class="col-sm-3">
+                  <%= m.config.ayuda %>
+                </td>
+              </tr>
+              <% } if (m.config.validador) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span class="input-group-addon" id="campo-validador">Validador:</span>
+                </td><td class="col-sm-6">
+                  <input type="hidden" class="select" id="dd-validador" name="validador" value="<% if (m.validador) {%><%= m.validador %><% } %>" optional="true">
+                  <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="btn-dd-validador" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Seleccione una opción
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" dd="validador" aria-labelledby="btn-dd-validador">
+                      <li><a data="nop" dd="validador" href="#">Sin validador</a></li>
+                      <li><a data="correo" dd="validador" href="#">Correo electrónico</a></li>
+                      <li><a data="novacio" dd="validador" href="#">No vacío</a></li>
+                      <li><a data="numero" dd="validador" href="#">Número</a></li>
+                    </ul>
+                  </div>
+                </td><td class="col-sm-3">
+                  Tipo de validación de la respuesta
+                </td>
+              </tr>
+              <% } if (m.config.opcional) { %>
+              <tr>
+                <td class="col-sm-3">
+                  <span class="input-group-addon" id="opcional">Es opcional:</span>
+                </td><td class="col-sm-6">
+                  <input type="checkbox" class="form-control" aria-describedby="opcional" name="opcional" <% if (m.opcional) { %>checked="checked"<% } %>>
+                </td><td class="col-sm-3">
+                  Si es opcional completar este componente en el formulario
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h1>Previsualización</h1>
+
+      <div class="panel panel-default content">
+        <div class="panel-body">
+          <table class="table">
+            <%- partial ("../form/"+m.modid,{m:m}) %>
+          </table>
+        </div>
+      </div>
+
+      <button type="reset" id="cancelar" class="btn btn-primary" onClick="window.location='../form/modedit?formId=<%= formId %>'">Cancelar</button>
+      <button type="submit" class="btn btn-primary" name="action" value="guardar">Enviar</button>
+    </form>
+
+  </div>
+</div>
