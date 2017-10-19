@@ -166,7 +166,7 @@ module.exports = {
 				}
 				sails.controllers[m.modid].load({config:req.config,m:m},function(){
 					m.config = sails.controllers[m.modid].modedit();
-					return res.view("admin/modedit.ejs",{formId:req.formId,m:m});
+					return res.view("admin/modedit.ejs",{title:'Editar Componente',formId:req.formId,m:m});
 				},function(err){
 					return res.serverError(err);
 				});
@@ -195,8 +195,27 @@ module.exports = {
 				if (err) {
 					return res.serverError(err);
 				}
-				console.log(updated);
 				return res.redirect('/form/modedit?formId='+req.formId);
+			});
+
+		} else if (action == "guardar_siguiente") {
+			var nombre=req.param("nombre");
+			var etiqueta=req.param("etiqueta");
+			var texto1=req.param("texto1");
+			var texto2=req.param("texto2");
+			var ayuda=req.param("ayuda");
+			var validador=req.param("validador");
+			var opcional=req.param("opcional") === "on";
+			Modulos.update({formid:req.formId,orden:orden},{nombre:nombre,etiqueta:etiqueta,texto1:texto1,texto2:texto2,ayuda:ayuda,validador:validador,opcional:opcional}).exec(function(err,updated){
+				if (err) {
+					return res.serverError(err);
+				}
+				Modulos.findOne({formid:req.formId,orden:{'>':orden}}).sort('orden').exec(function(err,m){
+					if (err) {
+						return res.serverError(err);
+					}
+					return res.redirect('/admin/modedit?formId='+req.formId+'&orden='+m.orden+'&action=editar');
+				});
 			});
 
 		} else {

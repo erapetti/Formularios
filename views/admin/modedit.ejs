@@ -13,11 +13,20 @@
             <tbody>
               <tr>
                 <td class="col-sm-3">
-                  <span id="modid-1" class="input-group-addon">Módulo:</span>
+                  <span class="input-group-addon" id="campo-modulo">Módulo:</span>
                 </td><td class="col-sm-6">
-                  <input type="text" class="form-control" aria-describedby="modid-1" name="modid" value="<%= m.modid %>" readonly="readonly">
+                  <input type="hidden" class="select" id="dd-modulo" name="modulo" value="<% if (m.modid) {%><%= m.modid %>" readonly="readonly<% } %>">
+                  <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="btn-dd-modulo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Seleccione un tipo de componente
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" dd="modulo" aria-labelledby="btn-dd-modulo">
+                      <li><a data="<%= m.modid %>" dd="modulo" href="#"><%= m.modid %></a></li>
+                    </ul>
+                  </div>
                 </td><td class="col-sm-3">
-                  Tipo de componente
+                  Tipo de validación de la respuesta
                 </td>
               </tr>
               <% if (m.config.nombre) { %>
@@ -119,7 +128,8 @@
       </div>
 
       <button type="reset" id="cancelar" class="btn btn-primary" onClick="window.location='../form/modedit?formId=<%= formId %>'">Cancelar</button>
-      <button type="submit" class="btn btn-primary" name="action" value="guardar">Enviar</button>
+      <button type="submit" class="btn btn-primary" name="action" value="guardar">Guardar y Cerrar</button>
+      <button type="submit" class="btn btn-primary" name="action" value="guardar_siguiente">Guardar y Siguiente<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
     </form>
 
   </div>
