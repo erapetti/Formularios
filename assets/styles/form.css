@@ -19,6 +19,7 @@ div0.content { margin:2em }
 #status {margin-bottom:2em;margin-top:1em;display:inline;}
 
 #modedit #form .modulo:hover {background-color:#b6cbed;transition:background-color 1s;}
+#modedit button#cancelar {margin-left:32px;}
 #float {padding:5px;background-color:white;width:60px;z-index:10;}
 
 @media print {
