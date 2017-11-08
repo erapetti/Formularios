@@ -105,10 +105,12 @@ function autogrow(obj) {
   var breaks = matches ? matches.length : 2;
   obj.attr('rows',breaks + 1);
 };
+
 function mensaje(texto,color) {
         $('#status').html(texto);
         $('#status').css('color',color);
 };
+
 function bloquear() {
   $('#cancelar').hide();
   $('#borrar').show();
@@ -120,20 +122,25 @@ function bloquear() {
   $("#myForm a").css('display','none');
   $("body").css("cursor", "default");
 };
+
 function validate_nop(item) {
   return true;
 };
+
 function validate_novacio(item) {
   return (item.value && item.value!=="");
 };
+
 function validate_numero(item) {
   var re = /^[0-9]+$/;
   return re.test(item.value);
 };
+
 function validate_correo(item) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(item.value);
 };
+
 function validate() {
         mensaje('','black');
         var errores=0;
@@ -256,7 +263,7 @@ $('#dialog-message').on('hidden.bs.modal', function() {
        $('#float').attr('orden', $(this).attr('orden'));
      });
      $('#float a').click(function(){
-       window.location.assign("/admin/modedit?formId="+$(this).attr('formId')+"&orden="+$(this).parent().attr('orden')+"&action="+$(this).attr('title'));
+       window.location.assign("../admin/modedit?formId="+$(this).attr('formId')+"&orden="+$(this).parent().attr('orden')+"&action="+$(this).attr('title'));
      });
    }
  });
