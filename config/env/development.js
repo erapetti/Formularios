@@ -21,6 +21,7 @@ module.exports = {
   //   connection: 'someMongodbServer'
   // }
 
-  hookTimeout: 40000
+  hookTimeout: 40000,
+  baseurl: 'http://localhost:1337/',
 
 };

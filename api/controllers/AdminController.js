@@ -135,7 +135,7 @@ module.exports = {
 					if (err) {
 						return res.serverError(err);
 					}
-					return res.redirect('../../form/modedit?formId='+req.formId);
+					return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
 				});
 			} else {
 					return res.serverError(new Error("El componente ya está en el primer lugar"));
@@ -147,7 +147,7 @@ module.exports = {
 					if (err) {
 						return res.serverError(err);
 					}
-					return res.redirect('../../form/modedit?formId='+req.formId);
+					return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
 				});
 			} else {
 				return res.serverError(new Error("El componente ya está en el último lugar"));
@@ -177,11 +177,11 @@ module.exports = {
 				if (err) {
 					return res.serverError(err);
 				}
-				return res.redirect('../../form/modedit?formId='+req.formId);
+				return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
 			});
 
 		} else if (action == "crear") {
-			return res.redirect('../../form/modedit?formId='+req.formId);
+			return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
 
 		} else if (action == "guardar") {
 			var nombre=req.param("nombre");
@@ -195,7 +195,7 @@ module.exports = {
 				if (err) {
 					return res.serverError(err);
 				}
-				return res.redirect('../../form/modedit?formId='+req.formId);
+				return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
 			});
 
 		} else if (action == "guardar_siguiente") {
@@ -216,9 +216,9 @@ module.exports = {
 					}
 					if (!m) {
 						// no hay siguiente
-						return res.redirect('../../form/modedit?formId='+req.formId);
+						return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
 					}
-					return res.redirect('../../admin/modedit?formId='+req.formId+'&orden='+m.orden+'&action=editar');
+					return res.redirect(sails.config.baseurl + 'admin/modedit?formId='+req.formId+'&orden='+m.orden+'&action=editar');
 				});
 			});
 

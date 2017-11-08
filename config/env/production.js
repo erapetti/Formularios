@@ -34,6 +34,9 @@ module.exports = {
   log: {
 //    level: "silent"
     level: "info"
-  }
+  },
+
+  hookTimeout: 40000,
+  baseurl: 'http://servicios.ces.edu.uy/node/formularios/',
 
 };
