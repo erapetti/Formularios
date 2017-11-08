@@ -122,7 +122,16 @@
       <div class="panel panel-default content">
         <div class="panel-body">
           <table class="table">
-            <%- partial ("../form/"+m.modid,{m:m}) %>
+            <% if (m.modid == "intro") { -%>}
+            <tr><td>
+            <% } else { %>
+            <form id="myForm">
+            <% } %>
+            <%- partial ("../form/"+m.modid,{m:m,config:{modedit:1}}) %>
+            </form>
+            <% if (m.modid == "intro") { -%>}
+            </td></tr>
+            <% } %>
           </table>
         </div>
       </div>

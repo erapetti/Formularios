@@ -17,7 +17,6 @@
  		});
  	},
   modedit: function() {
-    return {texto1:undefined, texto2:undefined, ayuda:""};
     return {nombre:"correo", etiqueta:"Correo electrónico", texto1:undefined, texto2:undefined, ayuda:"Texto en gris dentro del campo", validador:"correo", opcional:"no"};
   },
  };

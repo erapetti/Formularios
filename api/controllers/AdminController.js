@@ -214,6 +214,9 @@ module.exports = {
 					if (err) {
 						return res.serverError(err);
 					}
+					if (!m) {
+						return res.redirect('/form/modedit?formId='+req.formId);
+					}
 					return res.redirect('/admin/modedit?formId='+req.formId+'&orden='+m.orden+'&action=editar');
 				});
 			});
