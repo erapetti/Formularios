@@ -102,6 +102,8 @@ module.exports = {
 		var titulo = req.param('titulo').trim();
 		var desde = req.param('desde').trim();
 		var hasta = req.param('hasta').trim();
+		var publico = req.param('publico')=='on';
+
 		if (!titulo || !desde || !hasta || titulo==="" || desde==="" || hasta==="") {
 			return res.json(500,{message:"Debe especificar título, fecha desde y fecha hasta"});
 		}
@@ -114,7 +116,7 @@ module.exports = {
 		// paso las fechas a UTCString y lo corro algunas horas porque hace conversión de TimeZone
 		desde=desde + 'T05:00:00.000Z';
 		hasta=hasta + 'T05:00:00.000Z';
-		Config.update({formid:req.formId},{titulo:titulo,desde:desde,hasta:hasta}).exec(function(err,updated){
+		Config.update({formid:req.formId},{titulo:titulo,desde:desde,hasta:hasta,publico:publico}).exec(function(err,updated){
 			if (err) {
 				return res.json(500,{message:err.message});
 			}

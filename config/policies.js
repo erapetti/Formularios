@@ -51,6 +51,7 @@ module.exports.policies = {
   FormController: {
     '*': ['sessionAuth','findForm','formEnabled'],
     'preview': ['sessionAuth','findForm'],
+    'publico': ['findForm','formEnabled'],
     'modedit': ['sessionAuth','findForm'],
   },
   AdminController: {

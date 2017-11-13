@@ -24,10 +24,16 @@ module.exports = function(req, res, next) {
     }
 
     req.config = config;
-    req.config.Userid = req.session.Userid;
-    req.config.Dependid = req.session.Dependid;
-    req.config.Lugarid = req.session.Lugarid;
-    req.config.ci = req.session.Userid.substr(1);
+    if (!req.config.publico){
+      try {
+        req.config.Userid = req.session.Userid;
+        req.config.Dependid = req.session.Dependid;
+        req.config.Lugarid = req.session.Lugarid;
+        req.config.ci = req.session.Userid.substr(1);
+      } catch(e) {
+        return res.serverError(new Error("Reinicie su sesión en el Portal de Servicios y vuelva a intentar."));
+      }
+    }
 
     return next();
   });

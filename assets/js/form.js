@@ -204,10 +204,14 @@ function adminInit() {
     var titulo = $('#admin tr[formid='+formid+'] td:nth-child(2)').html().trim();
     var desde = $('#admin tr[formid='+formid+'] td:nth-child(3)').attr('date').trim();
     var hasta = $('#admin tr[formid='+formid+'] td:nth-child(4)').attr('date').trim();
+    var publico = $('#admin tr[formid='+formid+']').attr('publico');
     $('#myModal .modal-body input[name=formId]').val(formid);
     $('#myModal .modal-body input[name=titulo]').val(titulo);
     $('#myModal .modal-body input[name=desde]').val(desde);
     $('#myModal .modal-body input[name=hasta]').val(hasta);
+    if (publico == "on") {
+      $('#myModal .modal-body input[name=publico]').prop("checked",true);
+    }
   });
   // submit del popup de edit
   $('#myModal #modalSubmit').click(function(event){
@@ -215,7 +219,8 @@ function adminInit() {
     var titulo = $('#myModal .modal-body input[name=titulo]').val();
     var desde = $('#myModal .modal-body input[name=desde]').val();
     var hasta = $('#myModal .modal-body input[name=hasta]').val();
-    $.post("edit", {formId:formid,titulo:titulo,desde:desde,hasta:hasta})
+    var publico = $('#myModal .modal-body input[name=publico]').prop("checked") ? "on" : "";
+    $.post("edit", {formId:formid,titulo:titulo,desde:desde,hasta:hasta,publico:publico})
       .done(function() {
         window.location.assign('');
       })

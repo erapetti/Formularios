@@ -23,6 +23,7 @@ module.exports = {
       collection: 'modulos',
       via: 'formid'
     },
+    publico: 'boolean',
   },
 
   recibidos: function(callback) {

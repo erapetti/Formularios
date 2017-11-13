@@ -61,7 +61,16 @@ module.exports = {
 	preview: function (req, res) {
 
 		req.config.preview = 1;
-		sails.controllers.form.index(req, res);
+		return sails.controllers.form.index(req, res);
+	},
+
+	// alias de index para usarlo en la validación de permisos
+	publico: function (req, res) {
+
+		if (req.config.publico != 1) {
+			return res.view("error.ejs", {title:req.config.titulo, mensaje:"Formulario deshabilitado para el acceso público"});
+		}
+		return sails.controllers.form.index(req, res);
 	},
 
 	// alias de index para usarlo en la validación de permisos

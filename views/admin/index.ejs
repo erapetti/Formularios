@@ -17,7 +17,7 @@
             <th>Acciones</th>
           </tr>
           <% config.forEach(function(item){ %>
-            <tr formid="<%= item.formid %>">
+            <tr formid="<%= item.formid %>" publico="<%= item.publico ? "on" : "" %>">
               <td>
                 <%= item.formid %>
               </td><td>
