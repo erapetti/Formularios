@@ -1,0 +1,8 @@
+<tr class="modulo" orden="<%= m.orden %>">
+  <td class="col-sm-3">
+    <span class="input-group-addon" id="credencial-<%= m.id%>"><%- m.etiqueta %>:</span>
+  </td><td class="col-sm-6">
+    <input type="text" class="form-control credencial"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="credencial-<%= m.id%>" name="<%= m.credencial %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
+  </td><td class="col-sm-3">
+  </td>
+</tr>

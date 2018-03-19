@@ -92,5 +92,26 @@ module.exports = {
     });
   },
 
+  credencial: function(perci,callback) {
+    return this.query(`
+      SELECT PD2.perid,PD2.PerDocId
+      FROM PERSONASDOCUMENTOS PD1
+      JOIN PERSONASDOCUMENTOS PD2
+      USING (PerId)
+      WHERE PD1.PAISCOD='UY'
+        AND PD1.DOCCOD='CI'
+        AND PD1.PERDOCID=?
+        AND PD2.PAISCOD='UY'
+        AND PD2.DOCCOD='CRE'
+      LIMIT 1
+    `,
+    [perci],
+    function(err,result){
+      if (err) {
+        return callback(err, undefined);
+      }
+      return callback(undefined, (result===null ? undefined : result[0]));
+    });
+  },
 
 };
