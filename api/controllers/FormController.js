@@ -104,7 +104,7 @@ module.exports = {
 		delete values._csrf;
 		recibido.formid = values.id;
 		delete values.id;
-		recibido.cedula = values.cedula;
+		recibido.cedula = req.config.ci;
 		delete values.cedula;
 		recibido.ip = req.connection.remoteAddress;
 		recibido.nombre = values.nombre;
