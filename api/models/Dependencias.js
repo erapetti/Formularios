@@ -65,7 +65,7 @@ module.exports = {
       WHERE StatusId=1
       GROUP BY DependId;
     `,
-    [perci,perci],
+    [perci,perci,perci],
     function(err,result){
       if (err) {
         return callback(err, undefined);
