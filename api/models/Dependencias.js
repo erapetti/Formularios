@@ -40,11 +40,24 @@ module.exports = {
         SELECT DependId
         FROM Personal.RELACIONES_LABORALES
         JOIN Personas.PERSONASDOCUMENTOS
-          ON perid=personalperid and paiscod='UY' and doccod='CI'
+          ON perid=personalperid AND paiscod='UY' AND doccod='CI'
         JOIN Personal.PUESTOS
           USING (puestoid)
         WHERE perdocid=?
+          AND RelLabAnulada<>1
         GROUP BY DependId
+
+        UNION
+
+        SELECT SillaDependId DependId
+        FROM Personal.RELACIONES_LABORALES
+        JOIN Personal.SILLAS
+          USING (SillaId)
+        JOIN Personas.PERSONASDOCUMENTOS
+          ON perid=personalperid AND paiscod='UY' AND doccod='CI'
+        WHERE perdocid=?
+          AND RelLabAnulada<>1
+        GROUP BY SillaDependId
 
       ) TMP
 
