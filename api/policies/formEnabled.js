@@ -14,7 +14,7 @@ module.exports = function(req, res, next) {
   }
 
   var ahora = new Date();
-  if (!(req.config.desde <= ahora && ahora <= req.config.hasta) && !req.session.preview) {
+  if (!(req.config.desde <= ahora && ahora <= req.config.hasta) && req.session && !req.session.preview) {
     return res.view("error.ejs", {title:req.config.titulo, mensaje:"Formulario deshabilitado porque estamos fuera del período de validez"});
   }
 
