@@ -2,7 +2,7 @@
     </div>
   </div>
 
-<% if (!config.preview) { -%>
+<% if (!config.preview && config.enabled) { -%>
   <div class="content">
     <button type="reset" id="cancelar" class="btn btn-primary" onClick="location.reload()">Cancelar</button>
     <button type="submit" class="btn btn-primary" name="submit" value="enviar">Enviar</button>
@@ -25,6 +25,6 @@
   <% if (m.texto2) { %><%- m.texto2 %><% } %>
 </div>
 
-<% if (!config.preview) { %>
+<% if (!config.preview && config.enabled) { %>
 <button type="button" id="borrar" class="btn btn-primary">Anular formulario</button>
 <% } %>

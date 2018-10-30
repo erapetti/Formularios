@@ -137,8 +137,25 @@ function validate_numero(item) {
 };
 
 function validate_correo(item) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(item.value);
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(item.value);
+};
+
+function validate_edad(item,param) {
+  var desde = param.search(/^\d+/);
+  var hasta = param.search(/\d+$/);
+  if (!desde || !hasta) {
+    return false;
+  }
+
+  try {
+    var ageDifMs = Date.now() - Date.parse(item);
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    return (age>=desde && age>=hasta);
+  } catch(e) {
+    return false;
+  }
 };
 
 function validate() {
@@ -147,7 +164,7 @@ function validate() {
         $('#myForm *').filter(':input').each(function(index,item) {
           if (item.getAttribute("validate") && (item.getAttribute("optional")!=='true' || item.value && item.value!=="")) {
             // llamo a la función de validación
-            if (!window["validate_"+item.getAttribute("validate")](item)) {
+            if (!window["validate_"+item.getAttribute("validate")](item, item.getAttribute("param"))) {
               errores+=1;
               $("#btn-"+$(item).attr("id")).addClass("red");
               $(item).addClass("red");

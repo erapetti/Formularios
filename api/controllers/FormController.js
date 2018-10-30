@@ -29,7 +29,7 @@ module.exports = {
 					return res.serverError(err);
 				}
 
-				if (recibido && req.session && !req.session.preview) {
+				if (recibido && (!req.session || !req.session.preview)) {
 					// ya está registrado el usuario para este formulario y no estoy en modo preview
 
 					// recorro el json guardado en la base y voy cargando los valores

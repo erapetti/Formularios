@@ -175,11 +175,36 @@ module.exports = {
 			});
 
 		} else if (action == "borrar") {
-			Modulos.destroy({formid:req.formId,orden:orden}).exec(function(err){
+			Modulos.findOne({formid:req.formId,orden:orden}).exec(function(err,m){
 				if (err) {
 					return res.serverError(err);
 				}
-				return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
+				if (!m) {
+					return res.serverError(new Error("Módulo no encontrado para borrar"));
+				}
+				Modulos.destroy({formid:req.formId,id:m.id}).exec(function(err){
+					if (err) {
+						return res.serverError(err);
+					}
+					if (m.modid == "grupo_abre") {
+						Modulos.findOne({where:{formid:req.formId,orden:{'>':orden},modid:"grupo_cierra"},sort:"orden"}).exec(function(err,m2){
+							if (err) {
+								return res.serverError(err);
+							}
+							if (!m2) {
+								return res.serverError(new Error("Módulo grupo_cierra no encontrado para borrar"));
+							}
+							Modulos.destroy({formid:req.formId,id:m2.id}).exec(function(err){
+								if (err) {
+									return res.serverError(err);
+								}
+								return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
+							});
+						});
+					} else {
+						return res.redirect(sails.config.baseurl + 'form/modedit?formId='+req.formId);
+					}
+				});
 			});
 
 		} else if (action == "crear") {
