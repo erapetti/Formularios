@@ -2,9 +2,12 @@
   <td class="col-sm-3">
     <span class="input-group-addon" id="campo-<%= m.orden%>"><%- m.etiqueta %>:</span>
   </td><td class="col-sm-6">
-    <input type="checkbox" class="form-control" aria-describedby="campo-<%= m.orden%>" name="<%= m.nombre %>" <% if (m.value) { %>checked="checked"<% } %><% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
-  </td><td class="col-sm-3">
-    <% if (m.ayuda !== null) { %><%= m.ayuda %><% } %>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" class="form-control" aria-describedby="campo-<%= m.orden%>" name="<%= m.nombre %>" <% if (m.value) { %>checked="checked"<% } %><% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
+        <% if (m.ayuda !== null) { %><%= m.ayuda %><% } %>
+      </label>
+    </div>
   </td>
 </tr>
 <% if (m.texto1) { %>

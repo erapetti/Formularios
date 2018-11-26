@@ -11,10 +11,11 @@ div0.content { margin:2em }
 #form {margin:2em;width:90%;}
 .myForm span.input-group-addon {font-weight:bold;font-size:100%;background-color:transparent;border:0;text-align:right;white-space:normal;}
 .myForm input.form-control {font-size:100%;}
-.myForm input.form-control[type=checkbox] {width:20px;height:20px;}
+.myForm input.form-control[type=checkbox] {width:20px;height:20px;margin-left:-25px;}
 .myForm {padding:1em;}
 .myForm .table:first-child > tbody > tr:first-child > td {border-top: none;}
 .myForm .red {border-color:red;}
+.myForm div.checkbox {margin:0;}
 #form button#borrar {display:block;margin-top:1em;}
 #status {margin-bottom:2em;margin-top:1em;display:inline;}
 
