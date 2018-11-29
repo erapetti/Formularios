@@ -33,6 +33,9 @@ module.exports = {
 			}
 
 			res.set('Content-type','text/tab-separated-values; charset=utf-8');
+			recibido.forEach(function(item) {
+				item.updatedAt = item.updatedAt.fecha_ymdhms_toString();
+			});
 			return res.view("admin/download.ejs",{layout:'',config:req.config,recibido:recibido});
 		});
 	},
@@ -263,4 +266,8 @@ Date.prototype.fecha_toString = function() {
 Date.prototype.fecha_edit_toString = function() {
 	var sprintf = require("sprintf");
 	return sprintf("%04d-%02d-%02d", this.getFullYear(),this.getMonth()+1,this.getDate());
+};
+Date.prototype.fecha_ymdhms_toString = function() {
+	var sprintf = require("sprintf");
+	return sprintf("%04d-%02d-%02d %02s:%02s:%02s", this.getFullYear(),this.getMonth()+1,this.getDate(),this.getHours(),this.getMinutes(),this.getSeconds());
 };

@@ -1,5 +1,5 @@
 <% var cols = []; -%>
-"Cédula"	"Nombre"	"Correo"	"Teléfono"<%
+"Cédula"	"Nombre"	"Correo"	"Teléfono"	"Fecha"<%
 config.modulos.forEach(function(m){
    if (m.nombre !== null && m.nombre !== "cedula" && m.nombre !== "nombre" && m.nombre !== "correo" && m.nombre !== "telefono") {
 	cols.push(m.nombre); -%>
@@ -7,7 +7,7 @@ config.modulos.forEach(function(m){
 <% }
 }) %>
 <% recibido.forEach(function(item) { -%>
-"<%= item.cedula %>"	"<%= item.nombre %>"	"<%= item.correo %>"	="<%= item.telefono %>"<%
+"<%= item.cedula %>"	"<%= item.nombre %>"	"<%= item.correo %>"	="<%= item.telefono %>"	"<%= item.updatedAt %>"	<%
   cols.forEach(function(c){ -%>	"<%- item.json[c] || item.json[c]==0 ? item.json[c] : '' %>"<%
   }) %>
 
