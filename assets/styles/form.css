@@ -9,18 +9,18 @@ body {font-family:Lato,SansSerif;font-size:16px;}
 h3 {font-size:150% !important;}
 div0.content { margin:2em }
 #form {margin:2em;width:90%;}
-.myForm span.input-group-addon {font-weight:bold;font-size:100%;background-color:transparent;border:0;text-align:right;white-space:normal;}
+.myForm0 label {font-weight:bold;font-size:100%;background-color:transparent;border:0;text-align:right;white-space:normal;}
 .myForm input.form-control {font-size:100%;}
 .myForm input.form-control[type=checkbox] {width:20px;height:20px;margin-left:-25px;}
 .myForm {padding:1em;}
 .myForm .table:first-child > tbody > tr:first-child > td {border-top: none;}
 .myForm .red {border-color:red;}
 .myForm div.checkbox {margin:0;}
-#form button#borrar {display:block;margin-top:1em;}
 #status {margin-bottom:2em;margin-top:1em;display:inline;}
 
 #modedit #form .modulo:hover {background-color:#b6cbed;transition:background-color 1s;}
-#modedit button#cancelar {margin-left:32px;}
+#modedit {margin-bottom:2em;}
+#modedit button#cancelar {margin-left:2em;margin-right:4px;}
 #float {padding:5px;background-color:white;width:60px;z-index:10;}
 
 @media print {
@@ -50,12 +50,13 @@ div0.content { margin:2em }
 #admin table.formularios span.badge {font-size:100%;}
 #admin table.formularios span.red {background-color:#942a25;}
 #admin table.formularios:first-child > tbody > tr:first-child > th {border-top: none;}
-#admin a.disabled span {color:#888;}
+#admin a.disabled i {color:#888;}
 #admin .acciones {white-space:nowrap;}
 #admin .acciones a {margin-left:0.8em;opacity:0.5;}
 #admin table.formularios tr:hover a {opacity:1;}
 #admin #myModal div.modal-body th {padding:0 0.5em 1em 0.5em;}
 #admin #myModal div.modal-body td {padding:0 0.5em 1em 0.5em;width:100%;}
-#admin #preview .modal-dialog {width:75vw;}
+#admin #myModal div.modal-dialog {max-width:75vw;}
+#admin #preview .modal-dialog {width:75vw;max-width:75vw;}
 #admin #preview iframe {width:100%;height:70vh;}
 #admin a {outline:0}

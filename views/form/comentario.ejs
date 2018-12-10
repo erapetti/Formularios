@@ -1,8 +1,8 @@
-<tr class="modulo" orden="<%= m.orden %>">
+<tr class="modulo" data-orden="<%= m.orden %>">
   <td class="col-sm-3">
-    <span class="input-group-addon" id="cedula-<%= m.id%>"><%- m.etiqueta %>:</span>
+    <label for="campo-<%= m.id%>"><%- m.etiqueta %>:</label>
   </td><td class="col-sm-6">
-    <textarea class="form-control"<% if (m.ayuda) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="cedula-<%= m.id%>" name="<%= m.nombre %>">
+    <textarea class="form-control"<% if (m.ayuda) { %> placeholder="<%= m.ayuda %>"<% } %> id="campo-<%= m.id%>" name="<%= m.nombre %>">
 <% if (m.value) { %><%= m.value %><% } %></textarea>
   </td><td class="col-sm-3">
   </td>

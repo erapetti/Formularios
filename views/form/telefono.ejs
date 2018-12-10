@@ -1,8 +1,8 @@
-<tr class="modulo" orden="<%= m.orden %>">
+<tr class="modulo" data-orden="<%= m.orden %>">
   <td class="col-sm-3">
-    <span class="input-group-addon" id="telefono-<%= m.id%>"><%- m.etiqueta %>:</span>
+    <label for="telefono-<%= m.id%>"><%- m.etiqueta %>:</label>
   </td><td class="col-sm-6">
-    <input type="text" class="form-control"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="telefono-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
+    <input type="text" class="form-control"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> id="telefono-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> data-validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> data-optional="true"<% } %>>
   </td><td class="col-sm-3">
     <a href="http://servicios.ces.edu.uy/ces/cgi-bin/pwd/cambiar_datos.pl">cambiar</a>
   </td>

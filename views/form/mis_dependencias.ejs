@@ -1,19 +1,13 @@
-<tr class="modulo" orden="<%= m.orden %>">
+<tr class="modulo" data-orden="<%= m.orden %>">
   <td class="col-sm-3">
-    <span class="input-group-addon" id="campo-<%= m.id%>"><%- m.etiqueta %>:</span>
+    <label for="campo-<%= m.id%>"><%- m.etiqueta %>:</label>
   </td><td class="col-sm-6">
-    <input type="hidden" class="<%= m.modid %>" id="dd-<%= m.id%>" name="<%= m.nombre %>" value="<% if (m.value) {%><%= m.value %><% } %>"<% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
-    <div class="dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" id="btn-dd-<%= m.id%>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Seleccione una opción
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" dd="<%= m.id %>" aria-labelledby="btn-dd-<%= m.id%>">
-        <% m.options.forEach(function(dependencia){ -%>
-          <li><a data="<%= dependencia.DependDesc %> (<%= dependencia.DependId %>)" dd="<%= m.id %>" href="#"><%= dependencia.DependDesc %></a></li>
-        <% }) %>
-      </ul>
-    </div>
+    <select class="custom-select" id="campo-<%= m.id%>" name="<%= m.nombre %>"<% if (m.validador) { %> data-validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> data-optional="true"<% } %>>
+      <option value="">Seleccione una opción</option>
+      <% m.options.forEach(function(dependencia){ -%>
+        <option value="<%= dependencia.DependDesc %> (<%= dependencia.DependId %>)"<% if (m.value === dependencia.DependDesc+" ("+dependencia.DependId+")") { %> selected<% } %>><%= dependencia.DependDesc %></option>
+      <% }) %>
+    </select>
   </td><td class="col-sm-3">
     <% if (m.ayuda !== null) { %><%= m.ayuda %><% } %>
   </td>

@@ -1,17 +1,17 @@
-<tr class="modulo" orden="<%= m.orden %>">
+<tr class="modulo" data-orden="<%= m.orden %>">
   <td class="col-sm-3">
-    <span class="input-group-addon" id="cedula-<%= m.id%>"><%- m.etiqueta %>:</span>
+    <label for="cedula-<%= m.id%>"><%- m.etiqueta %>:</label>
   </td><td class="col-sm-6">
-    <input type="text" class="form-control cedula"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> aria-describedby="cedula-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> optional="true"<% } %>>
+    <input type="text" class="form-control cedula"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> id="cedula-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> data-validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> data-optional="true"<% } %>>
   </td><td class="col-sm-3">
   </td>
 </tr>
-<script type="text/javascript">
+<script>
 function fmtCedula(text) {
-      return text.replace(/(.)?(...)(...)(.)$/, function(match,millon,mil,unidades,verif) {
-                                                   return millon+'.'+mil+'.'+unidades+'-'+verif;
-                                                 }
-      );
+  return text.replace(/(.)?(...)(...)(.)$/, function(match,millon,mil,unidades,verif) {
+    return millon+'.'+mil+'.'+unidades+'-'+verif;
+    }
+  );
 };
 window.onload = function(){
   $('input.cedula').each(function(obj){

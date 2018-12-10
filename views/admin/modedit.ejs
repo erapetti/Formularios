@@ -13,38 +13,34 @@
             <tbody>
               <tr>
                 <td class="col-sm-3">
-                  <span class="input-group-addon" id="campo-modulo">Módulo:</span>
+                  <label for="campo-modid">Módulo:</label>
                 </td><td class="col-sm-6">
-                  <input type="hidden" class="select" id="dd-modulo" name="modulo" value="<% if (m.modid) {%><%= m.modid %>" readonly="readonly<% } %>">
-                  <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="btn-dd-modulo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      Seleccione un tipo de componente
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" dd="modulo" aria-labelledby="btn-dd-modulo">
-                      <li><a data="<%= m.modid %>" dd="modulo" href="#"><%= m.modid %></a></li>
-                    </ul>
-                  </div>
+                  <select class="custom-select" id="campo-modid" name="modid" readonly="readonly">
+                    <option value="">Seleccione un tipo de módulo</option>
+                    <% modulos.forEach(function(mod){ -%>
+                      <option value="<%= mod %>"<% if (mod===m.modid) { %> selected<% } %>><%= mod %></option>
+                    <% }) %>
+                  </select>
                 </td><td class="col-sm-3">
-                  Tipo de validación de la respuesta
+                  Tipo de módulo
                 </td>
               </tr>
               <% if (m.config.nombre) { %>
               <tr>
                 <td class="col-sm-3">
-                  <span id="nombres-1" class="input-group-addon">Nombre:</span>
+                  <label for="nombres-1">Nombre:</label>
                 </td><td class="col-sm-6">
-                  <input type="text" class="form-control" aria-describedby="nombre-1" name="nombre" value="<%= m.nombre %>">
+                  <input type="text" class="form-control" id="nombre-1" name="nombre" value="<%= m.nombre %>">
                 </td><td class="col-sm-3">
-                  Nombre del parámetro en el form
+                  Nombre interno para el parámetro del form
                 </td>
               </tr>
               <% } if (m.config.etiqueta) { %>
               <tr>
                 <td class="col-sm-3">
-                  <span id="etiqueta-1" class="input-group-addon">Etiqueta:</span>
+                  <label for="etiqueta-1">Etiqueta:</label>
                 </td><td class="col-sm-6">
-                  <input type="text" class="form-control" aria-describedby="etiqueta-1" name="etiqueta" value="<%= m.etiqueta %>">
+                  <input type="text" class="form-control" id="etiqueta-1" name="etiqueta" value="<%= m.etiqueta %>">
                 </td><td class="col-sm-3">
                   Etiqueta que se muestra en pantalla
                 </td>
@@ -52,9 +48,9 @@
               <% } if (m.config.texto1) { %>
               <tr>
                 <td class="col-sm-3">
-                  <span id="texto-1" class="input-group-addon">Texto 1:</span>
+                  <label for="texto-1">Texto 1:</label>
                 </td><td class="col-sm-6">
-                  <textarea class="form-control" aria-describedby="texto-1" name="texto1"><% if (m.texto1) { %><%= m.texto1 %><% } %></textarea>
+                  <textarea class="form-control" id="texto-1" name="texto1"><% if (m.texto1) { %><%= m.texto1 %><% } %></textarea>
                 </td><td class="col-sm-3">
                   <%= m.config.texto1 %>
                 </td>
@@ -62,9 +58,9 @@
               <% } if (m.config.texto2) { %>
               <tr>
                 <td class="col-sm-3">
-                  <span id="texto-2" class="input-group-addon">Texto 2:</span>
+                  <label for="texto-2">Texto 2:</label>
                 </td><td class="col-sm-6">
-                  <textarea class="form-control" aria-describedby="texto-2" name="texto2"><% if (m.texto2) { %><%= m.texto2 %><% } %></textarea>
+                  <textarea class="form-control" id="texto-2" name="texto2"><% if (m.texto2) { %><%= m.texto2 %><% } %></textarea>
                 </td><td class="col-sm-3">
                   <%= m.config.texto2 %>
                 </td>
@@ -72,41 +68,34 @@
               <% } if (m.config.ayuda) { %>
               <tr>
                 <td class="col-sm-3">
-                  <span id="ayuda-1" class="input-group-addon">Ayuda:</span>
+                  <label for="ayuda-1">Ayuda:</label>
                 </td><td class="col-sm-6">
-                  <input type="text" class="form-control" aria-describedby="ayuda-1" name="ayuda" value="<%= m.ayuda %>">
+                  <input type="text" class="form-control" id="ayuda-1" name="ayuda" value="<%= m.ayuda %>">
                 </td><td class="col-sm-3">
                   <%= m.config.ayuda %>
                 </td>
               </tr>
               <% } if (m.config.validador) { %>
-              <tr>
-                <td class="col-sm-3">
-                  <span class="input-group-addon" id="campo-validador">Validador:</span>
-                </td><td class="col-sm-6">
-                  <input type="hidden" class="select" id="dd-validador" name="validador" value="<% if (m.validador) {%><%= m.validador %><% } %>" optional="true">
-                  <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="btn-dd-validador" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      Seleccione una opción
-                      <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" dd="validador" aria-labelledby="btn-dd-validador">
-                      <li><a data="nop" dd="validador" href="#">Sin validador</a></li>
-                      <li><a data="correo" dd="validador" href="#">Correo electrónico</a></li>
-                      <li><a data="novacio" dd="validador" href="#">No vacío</a></li>
-                      <li><a data="numero" dd="validador" href="#">Número</a></li>
-                    </ul>
-                  </div>
-                </td><td class="col-sm-3">
-                  Tipo de validación de la respuesta
-                </td>
-              </tr>
+                <tr class="modulo" data-orden="<%= m.orden %>">
+                  <td class="col-sm-3">
+                    <label for="campo-validador">Validador:</label>
+                  </td><td class="col-sm-6">
+                    <select class="custom-select" id="campo-validador" name="validador"<% if (m.validador) { %> data-validate="<%= m.validador %>"<% } %> data-optional="true">
+                      <option value="">Seleccione un validador</option>
+                      <% validadores.forEach(function(val){ -%>
+                        <option value="<%= val.id %>"<% if (m.validador===val.id) { %> selected<% } %>><%= val.desc %></option>
+                      <% }) %>
+                    </select>
+                  </td><td class="col-sm-3">
+                    Tipo de validador a usar para aceptar el envío del formulario
+                  </td>
+                </tr>
               <% } if (m.config.opcional) { %>
               <tr>
                 <td class="col-sm-3">
-                  <span class="input-group-addon" id="opcional">Es opcional:</span>
+                  <label for="opcional">Es opcional:</label>
                 </td><td class="col-sm-6">
-                  <input type="checkbox" class="form-control" aria-describedby="opcional" name="opcional" <% if (m.opcional) { %>checked="checked"<% } %>>
+                  <input type="checkbox" class="form-control" id="opcional" name="opcional" <% if (m.opcional) { %>checked="checked"<% } %>>
                 </td><td class="col-sm-3">
                   Si es opcional completar este componente en el formulario
                 </td>
@@ -121,23 +110,32 @@
 
       <div class="panel panel-default content">
         <div class="panel-body">
-          <table class="table">
-            <% if (m.modid == "intro") { -%>
-            <tr><td>
-            <% } else { %>
-            <form id="myForm">
-            <% } %>
-            <%- partial ("../form/"+m.modid,{m:m,config:{modedit:1}}) %>
-            </form>
-            <% if (m.modid == "intro") { -%>
-            </td></tr>
-            <% } %>
-          </table>
+          <iframe style="width:100%;border:0" srcdoc='
+            <table class="table">
+              <% if (m.modid == "intro") { -%>
+                <tr><td>
+              <% } else if (m.modid == "pie") { -%>
+                <tr><td><form><div><div><table>
+              <% } else { -%>
+                <tr><td><form id="ajaxForm"><table>
+              <% } %>
+
+              <%- partial ("../form/"+m.modid,{m:m,config:{modedit:1},session:session}) %>
+
+              <% if (m.modid == "intro") { -%>
+                </td></tr>
+              <% } else if (m.modid == "pie") { -%>
+                </td></tr>
+              <% } else { -%>
+                </table></form></td></tr>
+              <% } %>
+            </table>'>
+          </iframe>
         </div>
       </div>
 
       <button type="reset" id="cancelar" class="btn btn-primary" onClick="window.location='../form/modedit?formId=<%= formId %>'">Cancelar</button>
-      <button type="submit" class="btn btn-primary" name="action" value="guardar">Guardar y Cerrar</button>
+      <button type="submit" class="btn btn-primary" name="action" value="guardar">Guardar</button>
       <button type="submit" class="btn btn-primary" name="action" value="guardar_siguiente">Guardar y Siguiente<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
     </form>
 

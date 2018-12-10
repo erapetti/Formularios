@@ -8,8 +8,8 @@
  *
  */
 module.exports = function(req, res, next) {
-
   req.formId = req.param('id') || req.param('formId');
+
   if (!(req.formId>0)) {
     return res.serverError(new Error("Parámetros incorrectos"));
   }
@@ -34,7 +34,6 @@ module.exports = function(req, res, next) {
         return res.serverError(new Error("Reinicie su sesión en el Portal de Servicios y vuelva a intentar."));
       }
     }
-
     return next();
   });
 };

@@ -24,13 +24,32 @@ module.exports = {
 		// espero a que termine la carga...
 		Promise.all(requests).then(function(){
 			// todas las promises terminaron resolved (i.e. con éxito)
-			Recibidos.findOne({formid:req.formId,cedula:req.config.ci,borrado:false}).exec(function(err,recibido) {
+			Recibidos.find({formid:req.formId,cedula:req.config.ci,borrado:false}).exec(function(err,recibidos) {
 				if (err) {
 					return res.serverError(err);
 				}
-
-				if (recibido && req.session && !req.session.preview) {
+				if (recibidos && recibidos.length>0 && req.session && !req.session.preview && !(req.config.multiple && req.param('multiple'))) {
 					// ya está registrado el usuario para este formulario y no estoy en modo preview
+					// en el caso de los formularios que permiten múltiples respuestas me salteo el listado de recibidos si es que viene el parámetro "multiple"
+					if (req.config.multiple && !req.param('rid')) {
+						// Tengo que mostrar la lista de los recibidos
+
+						// arreglo el formato de las horas
+						recibidos.forEach(function(r) {
+							r.updatedAt = r.updatedAt.fecha_toString();
+						});
+
+						return res.view("form/index_multiple.ejs",{title:req.config.titulo,config:req.config,recibidos:recibidos});
+					}
+
+					// Voy a mostrar el comprobante de un formulario. Si es de tipo múltiple uso el parámetro rid para seleccionarlo, si no tomo el primero
+					var recibido = !req.config.multiple ? recibidos[0] : recibidos.find(function(r) {
+						return r.id == req.param('rid');
+					});
+
+					if (typeof recibido === 'undefined') {
+						return res.redirect(sails.config.baseurl + 'form/index?id='+req.formId);
+					}
 
 					// recorro el json guardado en la base y voy cargando los valores
 					// en los m.value correspondientes para poder mostrarlos en la UI
@@ -42,14 +61,14 @@ module.exports = {
 						});
 					});
 					recibido.updatedAt = recibido.updatedAt.fecha_toString();
-					return res.view("form/index.ejs",{title:req.config.titulo,config:req.config,recibido:recibido});
+					return res.view("form/index.ejs",{title:req.config.titulo,config:req.config,session:req.session,recibido:recibido});
 				}
 
 				if (req.param('submit')) {
 					// llamada por ajax
 					sails.controllers.form.guardar(req, res);
 				} else {
-					return res.view("form/index.ejs",{title:req.config.titulo,config:req.config,id:undefined});
+					return res.view("form/index.ejs",{title:req.config.titulo,config:req.config,session:req.session,id:undefined});
 				}
 			});
 		}).catch(function(error){
@@ -59,8 +78,7 @@ module.exports = {
 
 	// alias de index para usarlo en la validación de permisos
 	preview: function (req, res) {
-
-		req.config.preview = 1;
+		req.session.preview = 1;
 		return sails.controllers.form.index(req, res);
 	},
 
@@ -76,8 +94,8 @@ module.exports = {
 	// alias de index para usarlo en la validación de permisos
 	modedit: function (req, res) {
 
-		req.config.preview = 1;
-		req.config.modedit = 1;
+		req.session.preview = 1;
+		req.session.modedit = 1;
 		sails.controllers.form.index(req, res);
 	},
 
@@ -85,6 +103,9 @@ module.exports = {
 	borrar: function (req, res) {
 
 		var recordId = req.param("recordId");
+		if (!recordId) {
+			return res.json(500,{message:"Parámetros incorrectos"});
+		}
 		Recibidos.update({formid:req.formId,cedula:req.config.ci,borrado:false,id:recordId}, {borrado:true}).exec(function(err, updated){
 			if (err) {
 				return res.json(500,{message:err.message});
@@ -102,6 +123,7 @@ module.exports = {
 		var recibido = {};
 		delete values.submit;
 		delete values._csrf;
+		delete values.multiple;
 		recibido.formid = values.id;
 		delete values.id;
 		recibido.cedula = req.config.ci;

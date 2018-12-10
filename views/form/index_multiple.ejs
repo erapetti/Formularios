@@ -1,0 +1,27 @@
+<div id="form">
+
+<h1> <%= config.titulo %> </h1>
+
+<p style="margin-top:3em;margin-bottom:2em">Listado de formularios enviados desde su usuario:</p>
+
+<table class="table">
+  <tr>
+    <th>Número</th>
+    <th>Fecha de enviado</th>
+    <th>Acción</th>
+  </tr>
+<% recibidos.forEach(function(r){ %>
+  <tr>
+    <td><%= r.id %></td>
+    <td><%= r.updatedAt %></td>
+    <td><button type="button" class="btn btn-primary" onClick="window.location.href=window.location.href+'&rid='+<%= r.id %>">Abrir</button></td>
+  </tr>
+<% }) %>
+</table>
+
+<form>
+  <input type="hidden" name="id" value="<%= config.formid %>">
+  <button type="submit" class="btn btn-primary" name="multiple" value="enviar">Agregar otro envío</button>
+</form>
+
+</div>

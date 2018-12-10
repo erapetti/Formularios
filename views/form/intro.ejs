@@ -1,4 +1,4 @@
-<div class="modulo" orden="<%= m.orden %>">
+<div class="modulo" data-orden="<%= m.orden %>">
   <%if (m.texto1) { %><%- m.texto1 %><% } %>
   <%if (m.texto2) { %><%- m.texto2 %><% } %>
 </div>
@@ -7,12 +7,12 @@
   <div class="content">
     <button type="button" class="btn btn-primary" id="print" onClick="window.print()">Imprimir comprobante</button>
   </div>
-  <script type="text/javascript">
+  <script>
     var  bloqueado = true;
   </script>
 <% } %>
 
-<form method="post" id="myForm" class="myForm">
+<form method="post" id="ajaxForm" class="myForm">
 
   <div class="panel panel-default content">
     <div class="panel-body">
@@ -20,17 +20,17 @@
 <% if (typeof recibido !== "undefined") { %>
         <tr>
           <td class="col-sm-3">
-            <span class="input-group-addon" id="registro-0">Número de registro:</span>
+            <label for="registro-0">Número de registro:</label>
           </td><td class="col-sm-6">
-            <input type="text" class="form-control" aria-describedby="registro-0" value="<%= recibido.id %>" readonly="readonly">
+            <input type="text" class="form-control" id="registro-0" value="<%= recibido.id %>" readonly="readonly">
           </td><td class="col-sm-3">
           </td>
         </tr>
         <tr>
           <td class="col-sm-3">
-            <span class="input-group-addon" id="registro-1">Fecha de registro:</span>
+            <label for="registro-1">Fecha de registro:</label>
           </td><td class="col-sm-6">
-            <input type="text" class="form-control" aria-describedby="registro-1" value="<%= recibido.updatedAt %>" readonly="readonly">
+            <input type="text" class="form-control" id="registro-1" value="<%= recibido.updatedAt %>" readonly="readonly">
           </td><td class="col-sm-3">
           </td>
         </tr>

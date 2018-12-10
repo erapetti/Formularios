@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="utf-8" />
     <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/fontawesome-all.css">
     <link rel="stylesheet" href="/styles/form.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/jquery-ui.min.css">
+    <link rel="stylesheet" href="/styles/summernote-bs4.css">
     <link rel="stylesheet" href="/styles/zz-ie10-viewport-bug-workaround.css">
     <!--STYLES END-->
   </head>
@@ -15,16 +18,18 @@
     <%- body %>
 
     <!-- Modal Dialog -->
-    <div id="dialog-message" class="modal fade" role="dialog">
-      <div class="modal-dialog">
+    <div class="modal fade" tabindex="-1" role="dialog" id="dialog-message">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"></h4>
+            <h5 class="modal-title" id="dialog-message-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="modal-body"></div>
+          <div class="modal-body" id="dialog-message-body"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           </div>
         </div>
       </div>
@@ -35,9 +40,10 @@
     <!--TEMPLATES END-->
     <!--SCRIPTS-->
     <script src="/js/dependencies/0_jquery/jquery.min.js"></script>
-    <script src="/js/dependencies/1_bootstrap/bootstrap.min.js"></script>
-    <script src="/js/dependencies/2_jquery-form/jquery.form.js"></script>
+    <script src="/js/dependencies/1_popper/popper.min.js"></script>
+    <script src="/js/dependencies/2_bootstrap/bootstrap.min.js"></script>
     <script src="/js/dependencies/3_jquery-ui/jquery-ui.min.js"></script>
+    <script src="/js/dependencies/4_summernote/summernote-bs4.min.js"></script>
     <script src="/js/form.js"></script>
     <!--SCRIPTS END-->
   </body>

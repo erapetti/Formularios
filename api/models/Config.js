@@ -24,6 +24,7 @@ module.exports = {
       via: 'formid'
     },
     publico: 'boolean',
+    multiple: 'boolean',
   },
 
   recibidos: function(callback) {
