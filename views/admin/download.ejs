@@ -1,20 +1,27 @@
-<% var cols = []; -%>
-"Id"	"Cédula"	"Nombre"	"Correo"	"Teléfono"	"Fecha"  <%
-config.modulos.forEach(function(m){
-   if (m.nombre !== null && m.nombre !== "cedula" && m.nombre !== "nombre" && m.nombre !== "correo" && m.nombre !== "telefono") {
-	cols.push(m.nombre); -%>
-	"<%= m.etiqueta -%>"
-<% }
-}) %>
-<% recibidos.forEach(function(item) {
-    for (var attr in item) {
-      if (item[attr] == null) {
-        item[attr] = '';
-      }
-    }
+<% var cols = [];
+   var columnasFijas = ["cedula","nombre","correo","telefono"];
 -%>
-<%= item.id %>	"<%= item.cedula %>"	"<%= item.nombre %>"	"<%= item.correo %>"	="<%= item.telefono %>"	"<%= item.updatedAt %>"	<%
-  cols.forEach(function(c){ -%>"<%- item.json[c] || item.json[c]==0 ? item.json[c] : '' %>"	<%
-  }) %>
+"Id"	"Cédula"	"Nombre"	"Correo"	"Teléfono"	"Fecha"<%
 
-<% }) -%>
+   config.modulos.forEach(function(m){
+     if (m.nombre !== null && !columnasFijas.includes(m.nombre)) {
+       cols.push(m.nombre);
+%>	"<%= m.etiqueta %>"<%
+     }
+   });
+
+   recibidos.forEach(function(item) {
+     for (var attr in item) {
+       if (item[attr] == null) {
+         item[attr] = '';
+       }
+     }
+%>
+<%= item.id %>	"<%= item.cedula %>"	"<%= item.nombre %>"	"<%= item.correo %>"	="<%= item.telefono %>"	"<%= item.updatedAt %>"<%
+     cols.forEach(function(c){
+%>	"<%= (item.json[c] || item.json[c]==0) ? item.json[c] : '' %>"<%
+     });
+-%>
+<%
+   });
+%>
