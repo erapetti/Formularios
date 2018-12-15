@@ -74,7 +74,7 @@ function formInit() {
     e.preventDefault();
   });
 
-  $('form textarea').each(function() {
+  $('#myForm textarea').each(function() {
     autogrow($(this));
   });
 
