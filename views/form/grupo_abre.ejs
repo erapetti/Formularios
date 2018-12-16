@@ -1,6 +1,10 @@
 <tr>
   <td colspan="3">
-    <h3 class="modulo" data-orden="<%= m.orden %>">
-      <%if (m.etiqueta) { %><%- m.etiqueta %><% } %>
-    </h3>
-    <table class="table">
+  <% if (typeof session.modedit !== 'undefined') { %>
+    <div class="card">
+      <div class="card-body">
+  <% } %>
+        <h3 class="card-title modulo" data-orden="<%= m.orden %>">
+          <% if (m.etiqueta) { %><%= m.etiqueta %><% } %>
+        </h3>
+        <table class="table">

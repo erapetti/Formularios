@@ -4,7 +4,7 @@
 </div>
 
 <% if (typeof recibido !== "undefined") { %>
-  <div class="content">
+  <div class="botonera">
     <button type="button" class="btn btn-primary" id="print" onClick="window.print()">Imprimir comprobante</button>
   </div>
   <script>
@@ -14,8 +14,8 @@
 
 <form method="post" id="ajaxForm" class="myForm">
 
-  <div class="panel panel-default content">
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-body">
       <table class="table">
 <% if (typeof recibido !== "undefined") { %>
         <tr>

@@ -3,7 +3,7 @@
   </div>
 
 <% if (!session.preview && config.enabled && typeof recibido === "undefined") { -%>
-  <div class="content">
+  <div class="botonera">
     <button type="reset" id="cancelar" class="btn btn-primary" onClick="location.replace('?id=<%= m.formid %>')">Cancelar</button>
     <button type="submit" class="btn btn-primary" name="submit" value="enviar">Enviar</button>
     <div id="status"></div>
