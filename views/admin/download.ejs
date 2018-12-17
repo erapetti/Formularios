@@ -4,7 +4,7 @@
 "Id"	"Cédula"	"Nombre"	"Correo"	"Teléfono"	"Fecha"<%
 
    config.modulos.forEach(function(m){
-     if (m.nombre !== null && !columnasFijas.includes(m.nombre)) {
+     if (m.nombre !== null && columnasFijas.indexOf(m.nombre)<0) {
        cols.push(m.nombre);
 %>	"<%= m.etiqueta %>"<%
      }
