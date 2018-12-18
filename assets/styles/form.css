@@ -37,8 +37,8 @@ div.botonera { margin-top:2em; }
   :-ms-input-placeholder {color:transparent !important;}
   ::placeholder {color:transparent !important;}
   input,textarea,select {border:none !important; padding:0 !important; line-height:2em !important;}
-  .myForm .panel {border:none !important;}
-  .myForm .table td, .table th {padding:0 !important;vertical-align:top !important;}
+  .myForm .card {border:none !important;}
+  .myForm .table td, .table th {padding-top:0 !important;padding-bottom:0 !important;vertical-align:top !important;} 
   .myForm .table span {line-height:2em !important;}
   .myForm .table td {border:none;}
   .myForm .table {margin:0;}
