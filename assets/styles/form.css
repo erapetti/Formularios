@@ -27,7 +27,6 @@ div.botonera { margin-top:2em; }
 #float {padding:5px;background-color:white;width:60px;z-index:10;}
 
 @media print {
-  body {font-size:8pt;}
   button {display:none !important;}
   .myForm .table > tbody > tr > td:nth-child(3) {display:none;}
   .myForm .form-control[readonly] {background-color:transparent;color:black;}
