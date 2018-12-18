@@ -50,7 +50,7 @@
                 <td class="col-sm-3">
                   <label for="texto-1">Texto 1:</label>
                 </td><td class="col-sm-6">
-                  <textarea class="form-control" id="texto-1" name="texto1"><% if (m.texto1) { %><%= m.texto1 %><% } %></textarea>
+                  <textarea class="form-control<% if (typeof m.config.richtext !== 'undefined' && m.config.richtext.indexOf("texto1")>=0) { %> summernote<% } %>" id="texto-1" name="texto1"><% if (m.texto1) { %><%= m.texto1 %><% } %></textarea>
                 </td><td class="col-sm-3">
                   <%= m.config.texto1 %>
                 </td>

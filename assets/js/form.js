@@ -290,7 +290,7 @@ $('#dialog-message').on('hidden.bs.modal', function() {
        window.location.assign("../admin/modedit?formId="+$(this).attr('formId')+"&orden="+$(this).parent().attr('data-orden')+"&action="+$(this).attr('title'));
      });
    }
-   $('#admin_modedit textarea').summernote({toolbar:
+   $('#admin_modedit textarea.summernote').summernote({toolbar:
      [
        ['style', ['bold', 'italic', 'underline']],
        ['fontsize', ['fontsize']],

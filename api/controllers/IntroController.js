@@ -10,6 +10,6 @@
     return resolve(undefined);
  	},
   modedit: function() {
-    return {nombre:undefined, etiqueta:undefined, texto1:"Texto de introducción", texto2:undefined, ayuda:undefined, validador:undefined, opcional:undefined};
+    return {nombre:undefined, etiqueta:undefined, texto1:"Texto de introducción", texto2:undefined, ayuda:undefined, validador:undefined, opcional:undefined, richtext:["texto1"]};
   },
  };

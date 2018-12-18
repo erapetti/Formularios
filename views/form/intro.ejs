@@ -1,6 +1,9 @@
 <div class="modulo" data-orden="<%= m.orden %>">
-  <%if (m.texto1) { %><%- m.texto1 %><% } %>
-  <%if (m.texto2) { %><%- m.texto2 %><% } %>
+  <% if (m.texto1) { %>
+    <%- m.texto1 -%>
+  <% } else if (session.modedit) {  %>
+    (texto explicativo al inicio del formulario)
+  <% } %>
 </div>
 
 <% if (typeof recibido !== "undefined") { %>
