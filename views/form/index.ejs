@@ -1,4 +1,4 @@
-<% if (typeof session.modedit !== 'undefined') { %><div id="modedit"><% } %>
+<% if (typeof session !== 'undefined' && typeof session.modedit !== 'undefined') { %><div id="modedit"><% } %>
 <div id="form">
 
 <h1> <%= config.titulo %> </h1>
@@ -9,7 +9,7 @@
 
 </div>
 
-<% if (typeof session.modedit !== 'undefined') { %>
+<% if (typeof session !== 'undefined' && typeof session.modedit !== 'undefined') { %>
 
 <button type="reset" id="cancelar" class="btn btn-primary" onClick="window.location='../admin/index'">Volver</button>
 <button type="button" class="btn btn-primary" onClick="window.location='../admin/modedit?formId=<%= config.formid %>&orden=0&action=crear'">Agregar componente</button>
