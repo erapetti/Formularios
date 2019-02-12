@@ -2,7 +2,7 @@
     </div>
   </div>
 
-<% if (!session.preview && config.enabled && typeof recibido === "undefined") { -%>
+<% if (!(typeof session !== "undefined" && session.preview) && config.enabled && typeof recibido === "undefined") { -%>
   <div class="botonera">
     <button type="reset" id="cancelar" class="btn btn-primary" onClick="location.replace('?id=<%= m.formid %>')">Cancelar</button>
     <button type="submit" class="btn btn-primary" name="submit" value="enviar">Enviar</button>
@@ -16,19 +16,19 @@
     </div>
   <% } -%>
 
-<% if (!session.preview) { -%>
+<% if (!(typeof session !== "undefined" && session.preview)) { -%>
 </form>
 <% } -%>
 
 <div class="modulo" data-orden="<%= m.orden %>">
   <% if (m.texto1) { %>
     <%- m.texto1 -%>
-  <% } else if (session.modedit) {  %>
+  <% } else if (typeof session !== "undefined" && session.modedit) {  %>
     (texto explicativo al pie del formulario)
   <% } %>
 </div>
 
-<% if (!session.preview && config.enabled && typeof recibido !== "undefined") { %>
+<% if (!(typeof session !== "undefined" && session.preview) && config.enabled && typeof recibido !== "undefined") { %>
 <div class="mt-3">
   <button type="button" id="volver" class="btn btn-primary" onClick="location.replace('?id=<%= m.formid %>')">Volver</button>
   <button type="button" id="borrar" class="btn btn-danger">Anular formulario</button>
