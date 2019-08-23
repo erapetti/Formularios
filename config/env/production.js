@@ -39,4 +39,7 @@ module.exports = {
   hookTimeout: 40000,
   baseurl: 'http://servicios.ces.edu.uy/node/formularios/',
 
+  routes: {
+    '/min/font/summernote.woff': '/node/formularios/font/summernote.woff',
+  },
 };
