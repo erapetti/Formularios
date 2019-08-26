@@ -5,7 +5,7 @@
     <input type="text" class="form-control"<% if (m.ayuda !== null) { %> placeholder="<%= m.ayuda %>"<% } %> id="correo-<%= m.id%>" name="<%= m.nombre %>" value="<%= m.value %>" readonly="readonly"<% if (m.validador) { %> data-validate="<%= m.validador %>"<% } %><% if (m.opcional) { %> data-optional="true"<% } %>>
   </td><td class="col-sm-3">
     <% if (! m.value.match(/@ces\.edu\.uy$/)) { %>
-      <a href="http://servicios.ces.edu.uy/ces/cgi-bin/pwd/cambiar_datos.pl">cambiar</a>
+      <a href="https://servicios.ces.edu.uy/Personas/servlet/personaag01">cambiar</a>
     <% } %>
   </td>
 </tr>
