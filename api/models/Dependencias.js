@@ -30,13 +30,7 @@ module.exports = {
       FROM DEPENDENCIAS d
       JOIN (
 
-        SELECT DependId
-        FROM Personal.as400
-        WHERE cedula=?
-        GROUP BY DependId
-
-        UNION
-
+        -- Dependencias de los cargos que tuvo o tiene
         SELECT SillaDependId DependId
         FROM Personal.RELACIONES_LABORALES
         JOIN Personal.SILLAS
@@ -47,13 +41,27 @@ module.exports = {
           AND RelLabAnulada<>1
         GROUP BY SillaDependId
 
+        UNION
+
+        -- Dependencias de las funciones que tuvo o tiene
+        SELECT SillaDependId DependId
+        FROM Personal.RELACIONES_LABORALES
+        JOIN Personal.FUNCIONES_RELACION_LABORAL USING (RelLabId)
+        JOIN Personal.FUNCIONES_ASIGNADAS FA USING (FuncAsignadaId)
+        JOIN Personal.SILLAS S ON S.SillaId=FA.SillaId
+        JOIN Personas.PERSONASDOCUMENTOS ON perid=personalperid AND paiscod='UY' AND doccod='CI'
+        WHERE perdocid=?
+          AND RelLabAnulada<>1
+          AND FuncAsignadaAnulada<>1
+        GROUP BY SillaDependId
+
       ) TMP
 
       USING (DependId)
       WHERE StatusId=1
       GROUP BY DependId;
     `,
-    [perci,perci,perci],
+    [perci,perci],
     function(err,result){
       if (err) {
         return callback(err, undefined);
